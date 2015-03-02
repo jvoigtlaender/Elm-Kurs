@@ -60,4 +60,14 @@ Erklärungen:
   
   * arithmetische Ausdrücke
 
-* Schreibe und verwende eine Funktion (zu erklären), welche die vorige Aufgabe nicht nur für Radius 25 löst.
+* Schreibe und verwende eine Funktion (zu erklären), welche die vorige Aufgabe nicht nur für Radius 25 löst.  
+  Erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`
+
+* ...
+
+# Bewusst ignorierte Dinge
+
+* (vielleicht beiläufig erwähnen:) `filled`, `textured`, `gradient`
+* `polygon`, `ngon`, `alpha`
+* Text alignments and styles
+* Styling and inspection of `Element`s (`width`, `height`, `size`, `color`, `opacity`, `widthOf`, `heightOf`, `sizeOf`)
