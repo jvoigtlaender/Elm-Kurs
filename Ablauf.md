@@ -14,7 +14,7 @@ text : String -> Form
 
 Obige jeweils zentriert um Ursprung.
 
-Anders:
+Anders (absolute Koordinaten) bei:
 
 ```elm
 path : List (Float,Float) -> Form

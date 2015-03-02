@@ -5,5 +5,6 @@ scene _ _ =
    [ rectangle (100,130)
    , path [(-50,-65), (50,65)]
    ]
-```
 
+main = show scene Nothing
+```
