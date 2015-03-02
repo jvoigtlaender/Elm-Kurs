@@ -34,6 +34,6 @@ Erklärungen:
 
 * Benennung von Ausdrücken (für Wiederverwendung)
 * Zusammenfassen von Listen in einzelnes Bild (um etwa als Eingabe für `move` zu dienen):
-```elm
-group : List Form -> Form
-```
+  ```elm
+  group : List Form -> Form
+  ```
