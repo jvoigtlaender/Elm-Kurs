@@ -43,7 +43,6 @@ Erklärungen:
 
 * Male ein gleichseitiges, grünes Dreieck mit einbeschriebenem, rot gestricheltem Inkreis, so dass dieser den Radius 25 hat.  
   Erklärungen:
-
   * Styling:
 
     ```elm
