@@ -33,8 +33,7 @@ Mache aus dem einen Haus des Nikolaus drei nebeneinander stehende Häuser des Nik
 Erklärungen:
 
 * Benennung von Ausdrücken (für Wiederverwendung)
-
-*
+* Zusammenfassen von Listen in einzelnes Bild (um etwa als Eingabe für `move` zu dienen):
 ```elm
 group : List Form -> Form
 ```
