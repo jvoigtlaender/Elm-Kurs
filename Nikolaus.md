@@ -13,4 +13,6 @@ Zielbild, etwa:
 
 ![Haus des Nikolaus](images/Nikolaus.png)
 
+Zusatz: Male einen Kreis um die Hausspitze
+
 [share-elm](http://share-elm.com/sprout/54f4c80ae4b09711f39c2f5d)

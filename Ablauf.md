@@ -19,3 +19,9 @@ Anders (absolute Koordinaten) bei:
 ```elm
 path : List (Float,Float) -> Form
 ```
+
+Für Zusatz (und bei weiteren Aufgaben) nützlich:
+
+```elm
+move : (Float,Float) -> Form -> Form
+```
