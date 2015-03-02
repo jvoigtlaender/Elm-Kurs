@@ -43,6 +43,7 @@ Erklärungen:
 
 * Male ein gleichseitiges, grünes Dreieck mit einbeschriebenem, rot gestricheltem Inkreis, so dass dieser den Radius 25 hat.  
   Erklärungen:
+
   * Styling:
 
     ```elm
@@ -56,6 +57,7 @@ Erklärungen:
     dashed : Color -> LineStyle
     dotted : Color -> LineStyle
     ```
+  
   * arithmetische Ausdrücke
-* Schreibe und verwende eine Funktion (zu erklären), welche die vorige Aufgabe nicht nur für Radius 25 löst.
 
+* Schreibe und verwende eine Funktion (zu erklären), welche die vorige Aufgabe nicht nur für Radius 25 löst.
