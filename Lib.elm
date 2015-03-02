@@ -2,6 +2,7 @@ module Lib where
 
 import Text
 import Time
+import List (..)
 import Color (..)
 import Mouse
 import Signal
