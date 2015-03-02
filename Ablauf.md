@@ -1,0 +1,21 @@
+# Erste Aufgabe
+
+[Haus des Nikolaus](Nikolaus.md)
+
+Dann Erklärungen zu:
+
+```elm
+rectangle : (Float,Float) -> Form
+square : Float -> Form
+circle : Float -> Form
+oval : (Float,Float) -> Form
+text : String -> Form
+```
+
+Obige jeweils zentriert um Ursprung.
+
+Anders:
+
+```elm
+path : List (Float,Float) -> Form
+```
