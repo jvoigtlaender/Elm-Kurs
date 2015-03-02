@@ -9,4 +9,8 @@ scene _ _ =
 main = show scene Nothing
 ```
 
+Zielbild, etwa:
+
+![Haus des Nikolaus](images/Nikolaus.png)
+
 [share-elm](http://share-elm.com/sprout/54f4c80ae4b09711f39c2f5d)
