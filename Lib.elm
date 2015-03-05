@@ -128,3 +128,7 @@ dashed = Graphics.Collage.dashed
 
 dotted : Color -> LineStyle
 dotted = Graphics.Collage.dotted
+
+image : (Float,Float) -> String -> Form
+image (x,y) s = Graphics.Collage.toForm (Graphics.Element.image (round x) (round y) s)
+

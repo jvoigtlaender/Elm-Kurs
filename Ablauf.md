@@ -77,3 +77,7 @@ Erklärungen:
 * `polygon`, `ngon`, `alpha`
 * Text alignments and styles
 * Styling and inspection of `Element`s (`width`, `height`, `size`, `color`, `opacity`, `widthOf`, `heightOf`, `sizeOf`)
+* `Element` stuff: `container`, `spacer`, `empty`, `flow`, `layers`, `above`, ...
+* `link`, `tag`
+* `croppedImage`, `fittedImage`, `tiledImage`
+
