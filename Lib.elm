@@ -23,8 +23,8 @@ show f mt =
         Nothing -> (Signal.constant 0, [])
         Just ti -> (Signal.map2 (\(a,_) (b,_) -> a - b)
                     (Time.timestamp <| case ti of
-                        {Every x -> Time.every (if x < 20 then 20 else x);
-                         FPS x -> Time.fps (if x > 50 then 50 else x)})
+                        {Every x -> Time.every (if x < 17 then 17 else x);
+                         FPS x -> Time.fps (if x > 60 then 60 else x)})
                     (Time.timestamp (Signal.subscribe buttonCh))
                    , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
       fun (px,py) t =

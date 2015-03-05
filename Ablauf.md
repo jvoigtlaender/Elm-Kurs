@@ -41,7 +41,7 @@ Erklärungen:
 
 # Weitere Aufgaben
 
-* Male ein gleichseitiges, grünes Dreieck mit einbeschriebenem, rot gestricheltem Inkreis, so dass dieser den Radius 25 hat.  
+* Male ein gleichseitiges, grünes Dreieck mit einbeschriebenem, rot gestricheltem Berührkreis, so dass dieser den Radius 25 hat.  
   Erklärungen:
 
   * Styling:
@@ -62,6 +62,9 @@ Erklärungen:
 
 * Schreibe und verwende eine Funktion (zu erklären), welche die vorige Aufgabe nicht nur für Radius 25 löst.  
   Erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`
+
+* [Farbige Kreise](Kreise.md)  
+  Erklärung dabei: `if - then - else -`
 
 * ...
 
