@@ -66,6 +66,9 @@ Erklärungen:
 * [Farbige Kreise](Kreise.md)  
   Erklärung dabei: `if - then - else -`
 
+* [Reagieren auf Mausbewegungen](Maus.md)  
+  Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
+
 * ...
 
 # Bewusst ignorierte Dinge
