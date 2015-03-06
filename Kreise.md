@@ -14,3 +14,4 @@ main = show scene Nothing
 Zielbild, etwa:
 
 ![Farbige Kreise](images/Kreise.png)
+

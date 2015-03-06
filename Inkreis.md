@@ -7,3 +7,4 @@ Zielbild, etwa:
 ![Inkreis](images/Inkreis.png)
 
 Dann: Schreibe und verwende eine Funktion, welche diese Aufgabe nicht nur für Radius 25 löst.  
+
