@@ -39,29 +39,33 @@ Erklärungen:
   group : List Form -> Form
   ```
 
-# Weitere Aufgaben
+# Dritte Aufgabe
 
-* Male ein gleichseitiges, grünes Dreieck mit einbeschriebenem, rot gestricheltem Berührkreis, so dass dieser den Radius 25 hat.  
-  Erklärungen:
+[Inkreis](Inkreis.md)
 
-  * Styling:
+Erklärungen dabei:
 
-    ```elm
-    rectangle' : LineStyle -> (Float,Float) -> Form
-    square' : LineStyle -> Float -> Form
-    circle' : LineStyle -> Float -> Form
-    oval' : LineStyle -> (Float,Float) -> Form
-    path' : LineStyle -> List (Float,Float) -> Form
-    
-    solid : Color -> LineStyle
-    dashed : Color -> LineStyle
-    dotted : Color -> LineStyle
-    ```
+* Styling:
+
+  ```elm
+  rectangle' : LineStyle -> (Float,Float) -> Form
+  square' : LineStyle -> Float -> Form
+  circle' : LineStyle -> Float -> Form
+  oval' : LineStyle -> (Float,Float) -> Form
+  path' : LineStyle -> List (Float,Float) -> Form
   
-  * arithmetische Ausdrücke
+  solid : Color -> LineStyle
+  dashed : Color -> LineStyle
+  dotted : Color -> LineStyle
+  ```
 
-* Schreibe und verwende eine Funktion (zu erklären), welche die vorige Aufgabe nicht nur für Radius 25 löst.  
-  Erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`
+* arithmetische Ausdrücke
+
+* Funktionen
+
+* Erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`.
+
+# Weitere Aufgaben
 
 * [Farbige Kreise](Kreise.md)  
   Erklärung dabei: `if - then - else -`
