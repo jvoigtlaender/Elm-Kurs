@@ -65,13 +65,19 @@ Erklärungen dabei:
 
 * Erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`.
 
+# Vierte Aufgabe
+
+[Farbige Kreise](Kreise.md)  
+
+Erklärung dabei: `if - then - else -`
+
+# Fünfte Aufgabe
+
+[Reagieren auf Mausbewegungen](Maus.md)  
+
+Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
+
 # Weitere Aufgaben
-
-* [Farbige Kreise](Kreise.md)  
-  Erklärung dabei: `if - then - else -`
-
-* [Reagieren auf Mausbewegungen](Maus.md)  
-  Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 
 * ...
 
