@@ -77,6 +77,16 @@ Erklärung dabei: `if - then - else -`
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 
+# Sechste Aufgabe
+
+[Zeitabhängiges Verhalten](Bouncing.md)  
+
+Erklärungen dabei:
+
+* Ausdruck der Abhängigkeit von Zeitparameter
+
+* `Just (Every 20)`, `Just (FPS 50)`, ...
+
 # Weitere Aufgaben
 
 * ...
