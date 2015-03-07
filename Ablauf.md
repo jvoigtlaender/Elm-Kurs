@@ -28,7 +28,7 @@ move : (Float,Float) -> Form -> Form
 
 # Zweite Aufgabe
 
-[Drei Häuser des Nikolaus](pages/Reuse.md)
+[Drei Häuser des Nikolaus](pages/Re-Use.md)
 
 Erklärungen:
 
