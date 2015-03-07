@@ -41,7 +41,7 @@ Erklärungen:
 
 # Dritte Aufgabe
 
-[Inkreis](Inkreis.md)
+[Inkreis](pages/Inkreis.md)
 
 Erklärungen dabei:
 
