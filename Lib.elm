@@ -32,7 +32,7 @@ grid =
 
 type Timing = Every Float | FPS Float
 
-show : ((Float,Float) -> Float -> List Form) -> Maybe Timing -> Signal Graphics.Element.Element
+show : ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 show f mt =
   let (x,y) = dimensions
       (timer, timerButt) = case mt of
@@ -51,7 +51,7 @@ show f mt =
          , Graphics.Element.color (greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
-           ((if g then grid else []) ++ (f p (if t < 0 then 0 else t))) ]
+           ((if g then grid else []) ++ [f p (if t < 0 then 0 else t)]) ]
   in
    Signal.map3 fun Mouse.position timer (Signal.subscribe gridChan)
 

@@ -10,6 +10,7 @@ Vervollständige nun so, dass immer genau die Kreise rot sind, die näher am Koord
 form (x,y) i = ...
 
 scene (x,y) _ =
+  group
   [ form (x,y) 1
   , form (x,y) 2
   , form (x,y) 3

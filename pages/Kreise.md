@@ -10,6 +10,7 @@ Vervollständige, um 10 konzentrische Kreise zu malen, von denen die inneren fünf
 form i = ...
 
 scene _ _ =
+  group
   [ form 1
   , form 2
   , form 3

@@ -11,6 +11,7 @@ scene _ t =
   let
     h = t / 2000
   in
+    group
     [ path [ (-200,-20), (200,-20) ]
     , move (0, 100 * h) (circle 20)
     ]

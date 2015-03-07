@@ -25,7 +25,7 @@ scene (x,y) t =
       in
         move (ax,ay) image
   in
-    List.indexedMap (fun << toFloat) list
+    group (List.indexedMap (fun << toFloat) list)
 
 main = show scene (Just (FPS 50))
 ```

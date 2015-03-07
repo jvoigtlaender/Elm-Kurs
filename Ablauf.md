@@ -33,7 +33,7 @@ move : (Float,Float) -> Form -> Form
 Erklärungen:
 
 * Benennung von Ausdrücken (für Wiederverwendung)
-* Zusammenfassen von Bildern in einzelnes Bild (um etwa als Eingabe für `move` zu dienen):
+* Eventuell Zusammenfassen von Bildern in einzelnes Bild (um etwa als Eingabe für `move` zu dienen):
 
   ```elm
   group : List Form -> Form
