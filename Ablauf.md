@@ -1,6 +1,6 @@
 # Erste Aufgabe
 
-[Haus des Nikolaus](Nikolaus.md)
+[Haus des Nikolaus](pages/Nikolaus.md)
 
 Dann Erklärungen zu:
 

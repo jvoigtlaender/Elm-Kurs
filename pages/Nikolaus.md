@@ -1,3 +1,5 @@
+# Erste Aufgabe
+
 Vervollständige, um das Haus des Nikolaus zu malen:
 
 ```elm
@@ -11,7 +13,7 @@ main = show scene Nothing
 
 Zielbild, etwa:
 
-![Haus des Nikolaus](images/Nikolaus.png)
+![Haus des Nikolaus](../images/Nikolaus.png)
 
 Zusatz 1: Male einen kleinen Kreis um die Hausspitze.
 
