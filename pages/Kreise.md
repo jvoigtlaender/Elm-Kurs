@@ -1,3 +1,9 @@
+[Zurück](Inkreis.md)
+
+---
+
+# Vierte Aufgabe
+
 Vervollständige, um 10 konzentrische Kreise zu malen, von denen die inneren fünf rot, die äußeren fünf grün sind:
 
 ```elm
@@ -13,5 +19,5 @@ main = show scene Nothing
 
 Zielbild, etwa:
 
-![Farbige Kreise](images/Kreise.png)
+![Farbige Kreise](../images/Kreise.png)
 

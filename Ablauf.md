@@ -67,7 +67,7 @@ Erklärungen dabei:
 
 # Vierte Aufgabe
 
-[Farbige Kreise](Kreise.md)  
+[Farbige Kreise](pages/Kreise.md)  
 
 Erklärung dabei: `if - then - else -`
 
