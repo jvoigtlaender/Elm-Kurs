@@ -8,27 +8,27 @@ Wir haben schon einige Ausdrucksmöglichkeiten gesehen.
 Ein allgemeinerer Überblick mit Beispielen:
 
 * `rectangle (30,20)`  
-  Führt zu:  
+  führt zu:  
   ![rectangle](../images/rectangle.png)
 
 * `square 20`  
-  Führt zu:  
+  führt zu:  
   ![square](../images/square.png)
 
 * `circle 10`  
-  Führt zu:  
+  führt zu:  
   ![circle](../images/circle.png)
 
 * `oval (30,20)`  
-  Führt zu:  
+  führt zu:  
   ![oval](../images/oval.png)
 
 * `path [ (0,0), (15,15), (30,-15), (40,5) ]`  
-  Führt zu:  
+  führt zu:  
   ![path](../images/path.png)
 
 * `text "Hallo"`  
-  Führt zu:  
+  führt zu:  
   ![text](../images/text.png)
 
 Da außer bei (absolut positioniertem) `path` die Formen zunächst immer um den Koordinatenursprung `(0,0)` zentriert sind, ist `move` nützlich.
@@ -40,7 +40,9 @@ scene _ _ =
    , move (30,10) (circle 10)
    ]
 ```
-
-Führt zu:  
 ![move](../images/move.png)
+
+---
+
+[Weiter](Reuse.md)
 

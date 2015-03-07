@@ -28,7 +28,7 @@ move : (Float,Float) -> Form -> Form
 
 # Zweite Aufgabe
 
-Mache aus dem einen Haus des Nikolaus drei nebeneinander stehende Häuser des Nikolaus.
+[Drei Häuser des Nikolaus](pages/Reuse.md)
 
 Erklärungen:
 
