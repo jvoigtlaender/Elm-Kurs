@@ -31,5 +31,6 @@ main = show scene (Just (FPS 50))
 
 so dass interessantes, von sowohl der Zeit als auch der Mausbewegung abhängiges Verhalten entsteht.
 Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreativ.html).
-Lass deiner Kreativität freien Lauf.
+
+Der Kreativität freien Lauf!
 
