@@ -73,7 +73,7 @@ Erklärung dabei: `if - then - else -`
 
 # Fünfte Aufgabe
 
-[Reagieren auf Mausbewegungen](Maus.md)  
+[Reagieren auf Mausbewegungen](pages/Maus.md)  
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 

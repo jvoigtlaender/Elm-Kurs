@@ -21,3 +21,7 @@ Zielbild, etwa:
 
 ![Farbige Kreise](../images/Kreise.png)
 
+---
+
+[Weiter](Maus.md)
+
