@@ -67,25 +67,25 @@ Erklärungen dabei:
 
 # Vierte Aufgabe
 
-[Farbige Kreise](pages/Kreise.md)  
+[Farbige Kreise](pages/Kreise.md)
 
 Erklärung dabei: `if - then - else -`
 
 # Fünfte Aufgabe
 
-[Reagieren auf Mausbewegungen](pages/Maus.md)  
+[Reagieren auf Mausbewegungen](pages/Maus.md)
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 
 # Sechste Aufgabe
 
-[Zeitabhängiges Verhalten](pages/Bouncing.md)  
+[Zeitabhängiges Verhalten](pages/Bouncing.md)
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
-# Weitere Aufgaben
+# Siebte Aufgabe
 
-* ...
+[Freies Spiel der Kräfte](pages/Kreativ.md)
 
 # Bewusst ignorierte Dinge
 

@@ -22,3 +22,7 @@ so dass ein auf und ab springender Ball zu sehen ist, wie etwa [hier](http://jvo
 Das `Just (Every 20)` steht dafür, dass alle 20 Millisekunden ein neues Bild (mit aktuellem Zeitparameter `t`, ebenfalls in Millisekunden angegeben) gezeichnet werden soll.
 Alternativ ist auch die Angabe einer Frame-Rate möglich, etwa mit: `Just (FPS 50)`.
 
+---
+
+[Weiter](Kreativ.md)
+
