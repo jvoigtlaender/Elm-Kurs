@@ -8,6 +8,7 @@ Wir haben schon einige Ausdrucksmöglichkeiten gesehen.
 Ein allgemeinerer Überblick mit Beispielen:
 
 * `rectangle (30,20)`  
+  Führt zu:
   ![rectangle](../images/rectangle.png)
 * `square 10`
 * `circle 10`
