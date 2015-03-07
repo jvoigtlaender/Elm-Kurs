@@ -2,7 +2,7 @@
 
 [Haus des Nikolaus](pages/Nikolaus.md)
 
-Dann Erklärungen zu:
+Dann Erklärungen zu (neben Listensyntax):
 
 ```elm
 rectangle : (Float,Float) -> Form

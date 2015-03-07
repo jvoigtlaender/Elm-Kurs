@@ -10,6 +10,7 @@ Als kurze Impressionen, was damit möglich ist:
 
 Einige allgemeine Anweisungen zum Vorgehen:
 
+* Verwendung von [Lib.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/Lib.elm)
 * ...
 
 ---
