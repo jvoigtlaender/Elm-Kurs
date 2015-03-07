@@ -14,6 +14,22 @@ dimensions = (400,300)
 
 ---------------------
 
+gridsize = 20
+
+grid =
+  let
+    (x,y) = dimensions
+    xh = x/2
+    yh = y/2
+    i = floor(xh/gridsize)
+    j = floor(yh/gridsize)
+  in
+   map (\i -> let x = toFloat i * gridsize in path' (dotted (greyscale 0.15)) [ (x,-yh), (x,yh) ]) [ -i .. i ]
+   ++
+   map (\j -> let y = toFloat j * gridsize in path' (dotted (greyscale 0.15)) [ (-xh,y), (xh,y) ]) [ -j .. j ]
+   ++
+   [Graphics.Collage.filled red (Graphics.Collage.circle 2)]
+
 type Timing = Every Float | FPS Float
 
 show : ((Float,Float) -> Float -> List Form) -> Maybe Timing -> Signal Graphics.Element.Element
@@ -27,19 +43,23 @@ show f mt =
                          FPS x -> Time.fps (if x > 60 then 60 else x)})
                     (Time.timestamp (Signal.subscribe buttonCh))
                    , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
-      fun (px,py) t =
+      fun (px,py) t g =
         let p = (toFloat px - x/2, y/2 - toFloat py)
         in
          Graphics.Element.flow Graphics.Element.up
-         [ Graphics.Element.flow Graphics.Element.left <| Text.asText p :: timerButt
+         [ Graphics.Element.flow Graphics.Element.left <| Text.asText p :: gridCheck :: timerButt
          , Graphics.Element.color (greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
-           Graphics.Collage.collage x y <|
-           f p (if t < 0 then 0 else t) ]
+           Graphics.Collage.collage x y
+           ((if g then grid else []) ++ (f p (if t < 0 then 0 else t))) ]
   in
-   Signal.map2 fun Mouse.position timer
+   Signal.map3 fun Mouse.position timer (Signal.subscribe gridChan)
 
 buttonCh = Signal.channel ()
+
+gridChan = Signal.channel False
+
+gridCheck = Graphics.Input.checkbox (Signal.send gridChan) False
 
 type alias Form = Graphics.Collage.Form
 
