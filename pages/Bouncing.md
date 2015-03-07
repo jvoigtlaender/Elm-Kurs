@@ -8,11 +8,12 @@ Verändere folgendes Programm:
 
 ```elm
 scene _ t =
-  let h = t / 2000
+  let
+    h = t / 2000
   in
-   [ path [ (-200,-70), (200,-70) ]
-   , move (0, 150 * h - 50) (circle 20)
-   ]
+    [ path [ (-200,-20), (200,-20) ]
+    , move (0, 100 * h) (circle 20)
+    ]
 
 main = show scene (Just (Every 20))
 ```

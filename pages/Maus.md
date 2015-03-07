@@ -7,12 +7,20 @@
 Vervollständige nun so, dass immer genau die Kreise rot sind, die näher am Koordinatenursprung sind als der Mauszeiger (und die anderen grün):
 
 ```elm
-import List
+form (x,y) i = ...
 
-scene p _ =
-  List.map (ithCircle p) [ 1 .. 10 ]
-
-ithCircle (x,y) i = ...
+scene (x,y) _ =
+  [ form (x,y) 1
+  , form (x,y) 2
+  , form (x,y) 3
+  , form (x,y) 4
+  , form (x,y) 5
+  , form (x,y) 6
+  , form (x,y) 7
+  , form (x,y) 8
+  , form (x,y) 9
+  , form (x,y) 10
+  ]
 
 main = show scene Nothing
 ```

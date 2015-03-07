@@ -9,22 +9,23 @@ Verändere folgendes Programm:
 ```elm
 import List
 
-objects = [ (0, circle 10)
-          , (pi/2, square 15)
-          , (pi, circle 10)
-          , (3/2*pi, square 15)
-          ]
+list =
+  [ (circle 10, 0)
+  , (square 15, pi/2)
+  , (circle 10, pi)
+  , (square 15, 1.5*pi)
+  ]
 
 scene (x,y) t =
   let
-    fun i (alpha, form) =
+    fun i (form, alpha) =
       let
         (ax,ay) = (120 * cos(alpha + t/1500), 120 * sin(alpha + t/1500))
         image = group [form, text (toString i)]
       in
-       move (ax,ay) image
+        move (ax,ay) image
   in
-   List.indexedMap (fun << toFloat) objects
+    List.indexedMap (fun << toFloat) list
 
 main = show scene (Just (FPS 50))
 ```
