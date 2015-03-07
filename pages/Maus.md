@@ -19,3 +19,7 @@ main = show scene Nothing
 
 Zielverhalten wie hier: [Reagieren auf Mausbewegungen](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreise.html).
 
+---
+
+[Weiter](Bouncing.md)
+

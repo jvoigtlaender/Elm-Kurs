@@ -79,13 +79,9 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 
 # Sechste Aufgabe
 
-[Zeitabhängiges Verhalten](Bouncing.md)  
+[Zeitabhängiges Verhalten](pages/Bouncing.md)  
 
-Erklärungen dabei:
-
-* Ausdruck der Abhängigkeit von Zeitparameter
-
-* `Just (Every 20)`, `Just (FPS 50)`, ...
+Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 # Weitere Aufgaben
 
