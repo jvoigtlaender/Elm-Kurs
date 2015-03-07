@@ -36,9 +36,9 @@ Zum Beispiel:
 
 ```elm
 scene _ _ =
-   [ rectangle (30,20)
-   , move (30,10) (circle 10)
-   ]
+  [ rectangle (30,20)
+  , move (30,10) (circle 10)
+  ]
 ```
 ![move](../images/move.png)
 
