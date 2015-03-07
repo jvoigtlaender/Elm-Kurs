@@ -12,5 +12,7 @@ Einige allgemeine Anweisungen zum Vorgehen:
 
 * ...
 
+---
+
 [Weiter](Nikolaus.md)
 
