@@ -7,7 +7,11 @@
 Vervollständige nun so, dass immer genau die Kreise rot sind, die näher am Koordinatenursprung sind als der Mauszeiger (und die anderen grün):
 
 ```elm
-form (x,y) i = ...
+form (x,y) i =
+  let
+    r = 10 * i
+  in
+    ...
 
 scene (x,y) _ =
   group
