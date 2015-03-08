@@ -21,6 +21,8 @@ main = show scene (Just (Every 20))
 
 so dass ein auf und ab springender Ball zu sehen ist, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Bouncing.html).
 
+[share-elm](http://share-elm.com/sprout/54fcba28e4b0d720e25d602f)
+
 Das `Just (Every 20)` (statt vorher `Nothing`) steht dafür, dass alle 20 Millisekunden ein neues Bild (mit aktuellem Zeitparameter `t`, ebenfalls in Millisekunden angegeben) gezeichnet werden soll.
 Alternativ ist auch die Angabe einer Frame-Rate möglich, etwa mit: `Just (FPS 50)`.
 
