@@ -25,5 +25,12 @@ Dann: Schreibe und verwende eine Funktion, welche diese Aufgabe nicht nur für Ra
 
 ---
 
+Beispielausdrücke zur Erinnerung:
+
+* `circle 10`
+* `path [ (0,0), (15,15), (30,-15), (40,5) ]`
+
+---
+
 [Weiter](Kreise.md)
 
