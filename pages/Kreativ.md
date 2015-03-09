@@ -35,3 +35,12 @@ Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreativ
 
 Der Kreativität freien Lauf!
 
+---
+
+Beispielausdrücke zur Erinnerung:
+
+* `rectangle (30,20)`
+* `path [ (0,0), (15,15), (30,-15), (40,5) ]`
+* `move (x,y) (circle' (dashed red) r)`
+* `if ... then ... else ...`
+

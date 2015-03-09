@@ -36,3 +36,9 @@ Zielbild, etwa:
 
 [Weiter](Maus.md)
 
+---
+
+Beispiel zur Erinnerung Styling:
+
+* `circle' (solid red) 10`
+
