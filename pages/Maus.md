@@ -36,12 +36,12 @@ Zielverhalten wie hier: [Reagieren auf Mausbewegungen](http://jvoigtlaender.gith
 
 ---
 
-[Weiter](Bouncing.md)
-
----
-
 Beispielausdrücke zur Erinnerung:
 
 * `circle' (solid green) r`
 * `if ... then ... else ...`
+
+---
+
+[Weiter](Bouncing.md)
 
