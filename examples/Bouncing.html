@@ -1586,6 +1586,7 @@ Elm.Lib.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $Text = Elm.Text.make(_elm),
    $Time = Elm.Time.make(_elm);
+   var empty = $Graphics$Collage.toForm($Graphics$Element.empty);
    var image = F2(function (_v0,
    s) {
       return function () {
@@ -1596,7 +1597,7 @@ Elm.Lib.make = function (_elm) {
               $Basics.round(_v0._1),
               s));}
          _U.badCase($moduleName,
-         "on line 133, column 26 to 86");
+         "on line 153, column 26 to 86");
       }();
    });
    var dotted = $Graphics$Collage.dotted;
@@ -1637,7 +1638,7 @@ Elm.Lib.make = function (_elm) {
               _v4._0,
               _v4._1));}
          _U.badCase($moduleName,
-         "between lines 75 and 76");
+         "between lines 95 and 96");
       }();
    });
    var oval = oval$($Graphics$Collage.defaultLine);
@@ -1654,7 +1655,7 @@ Elm.Lib.make = function (_elm) {
               _v8._0,
               _v8._1));}
          _U.badCase($moduleName,
-         "between lines 59 and 60");
+         "between lines 79 and 80");
       }();
    });
    var rectangle = rectangle$($Graphics$Collage.defaultLine);
@@ -1663,6 +1664,10 @@ Elm.Lib.make = function (_elm) {
       return $Graphics$Collage.outlined(s)($Graphics$Collage.circle(r));
    });
    var circle = circle$($Graphics$Collage.defaultLine);
+   var gridChan = $Signal.channel(false);
+   var gridCheck = A2($Graphics$Input.checkbox,
+   $Signal.send(gridChan),
+   false);
    var buttonCh = $Signal.channel({ctor: "_Tuple0"});
    var FPS = function (a) {
       return {ctor: "FPS",_0: a};
@@ -1670,9 +1675,54 @@ Elm.Lib.make = function (_elm) {
    var Every = function (a) {
       return {ctor: "Every",_0: a};
    };
+   var gridsize = 20;
    var dimensions = {ctor: "_Tuple2"
                     ,_0: 400
                     ,_1: 300};
+   var grid = function () {
+      var $ = dimensions,
+      x = $._0,
+      y = $._1;
+      var xh = x / 2;
+      var i = $Basics.floor(xh / gridsize);
+      var yh = y / 2;
+      var j = $Basics.floor(yh / gridsize);
+      return A2($Basics._op["++"],
+      A2($List.map,
+      function (i) {
+         return function () {
+            var x = $Basics.toFloat(i) * gridsize;
+            return A2(path$,
+            dotted($Color.greyscale(0.15)),
+            _L.fromArray([{ctor: "_Tuple2"
+                          ,_0: x
+                          ,_1: 0 - yh}
+                         ,{ctor: "_Tuple2"
+                          ,_0: x
+                          ,_1: yh}]));
+         }();
+      },
+      _L.range(0 - i,i)),
+      A2($Basics._op["++"],
+      A2($List.map,
+      function (j) {
+         return function () {
+            var y = $Basics.toFloat(j) * gridsize;
+            return A2(path$,
+            dotted($Color.greyscale(0.15)),
+            _L.fromArray([{ctor: "_Tuple2"
+                          ,_0: 0 - xh
+                          ,_1: y}
+                         ,{ctor: "_Tuple2"
+                          ,_0: xh
+                          ,_1: y}]));
+         }();
+      },
+      _L.range(0 - j,j)),
+      _L.fromArray([A2($Graphics$Collage.filled,
+      $Color.red,
+      $Graphics$Collage.circle(2))])));
+   }();
    var show = F2(function (f,mt) {
       return function () {
          var $ = function () {
@@ -1689,10 +1739,10 @@ Elm.Lib.make = function (_elm) {
                                     {case "_Tuple2":
                                        return _v14._0 - _v15._0;}
                                     _U.badCase($moduleName,
-                                    "on line 24, column 50 to 55");
+                                    "on line 40, column 50 to 55");
                                  }();}
                             _U.badCase($moduleName,
-                            "on line 24, column 50 to 55");
+                            "on line 40, column 50 to 55");
                          }();
                       }),
                       $Time.timestamp(function () {
@@ -1704,7 +1754,7 @@ Elm.Lib.make = function (_elm) {
                             return $Time.fps(_U.cmp(mt._0._0,
                               60) > 0 ? 60 : mt._0._0);}
                          _U.badCase($moduleName,
-                         "between lines 25 and 27");
+                         "between lines 41 and 43");
                       }()),
                       $Time.timestamp($Signal.subscribe(buttonCh)))
                       ,_1: _L.fromArray([A2($Graphics$Element.spacer,
@@ -1720,14 +1770,16 @@ Elm.Lib.make = function (_elm) {
                       ,_0: $Signal.constant(0)
                       ,_1: _L.fromArray([])};}
             _U.badCase($moduleName,
-            "between lines 22 and 30");
+            "between lines 38 and 46");
          }(),
          timer = $._0,
          timerButt = $._1;
          var $ = dimensions,
          x = $._0,
          y = $._1;
-         var fun = F2(function (_v25,t) {
+         var fun = F3(function (_v25,
+         t,
+         g) {
             return function () {
                switch (_v25.ctor)
                {case "_Tuple2":
@@ -1739,32 +1791,43 @@ Elm.Lib.make = function (_elm) {
                        $Graphics$Element.up,
                        _L.fromArray([$Graphics$Element.flow($Graphics$Element.left)(A2($List._op["::"],
                                     $Text.asText(p),
-                                    timerButt))
+                                    A2($List._op["::"],
+                                    gridCheck,
+                                    timerButt)))
                                     ,$Graphics$Element.color($Color.greyscale(5.0e-2))(A3($Graphics$Element.container,
                                     x,
                                     y,
-                                    $Graphics$Element.middle)(A2($Graphics$Collage.collage,
+                                    $Graphics$Element.middle)(A3($Graphics$Collage.collage,
                                     x,
-                                    y)(A2(f,
+                                    y,
+                                    A2($Basics._op["++"],
+                                    g ? grid : _L.fromArray([]),
+                                    _L.fromArray([A2(f,
                                     p,
-                                    _U.cmp(t,0) < 0 ? 0 : t))))]));
+                                    _U.cmp(t,
+                                    0) < 0 ? 0 : t)])))))]));
                     }();}
                _U.badCase($moduleName,
-               "between lines 31 and 38");
+               "between lines 47 and 54");
             }();
          });
-         return A3($Signal.map2,
+         return A4($Signal.map3,
          fun,
          $Mouse.position,
-         timer);
+         timer,
+         $Signal.subscribe(gridChan));
       }();
    });
    _elm.Lib.values = {_op: _op
                      ,dimensions: dimensions
+                     ,gridsize: gridsize
+                     ,grid: grid
                      ,Every: Every
                      ,FPS: FPS
                      ,show: show
                      ,buttonCh: buttonCh
+                     ,gridChan: gridChan
+                     ,gridCheck: gridCheck
                      ,circle: circle
                      ,circle$: circle$
                      ,rectangle: rectangle
@@ -1788,7 +1851,8 @@ Elm.Lib.make = function (_elm) {
                      ,solid: solid
                      ,dashed: dashed
                      ,dotted: dotted
-                     ,image: image};
+                     ,image: image
+                     ,empty: empty};
    return _elm.Lib.values;
 };Elm.List = Elm.List || {};
 Elm.List.make = function (_elm) {
@@ -2041,17 +2105,17 @@ Elm.Main.make = function (_elm) {
       return function () {
          return function () {
             var h = $Basics.abs($Basics.cos(t / 500)) / (1 + t / 3000);
-            return _L.fromArray([$Lib.path(_L.fromArray([{ctor: "_Tuple2"
-                                                         ,_0: -200
-                                                         ,_1: -70}
-                                                        ,{ctor: "_Tuple2"
-                                                         ,_0: 200
-                                                         ,_1: -70}]))
-                                ,A2($Lib.move,
-                                {ctor: "_Tuple2"
-                                ,_0: 0
-                                ,_1: 150 * h - 50},
-                                $Lib.circle(20))]);
+            return $Lib.group(_L.fromArray([$Lib.path(_L.fromArray([{ctor: "_Tuple2"
+                                                                    ,_0: -200
+                                                                    ,_1: -70}
+                                                                   ,{ctor: "_Tuple2"
+                                                                    ,_0: 200
+                                                                    ,_1: -70}]))
+                                           ,A2($Lib.move,
+                                           {ctor: "_Tuple2"
+                                           ,_0: 0
+                                           ,_1: 150 * h - 50},
+                                           $Lib.circle(20))]));
          }();
       }();
    });
