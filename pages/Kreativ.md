@@ -20,7 +20,7 @@ scene (x,y) t =
   let
     fun i (form, alpha) =
       let
-        (ax,ay) = (120 * cos(alpha + t/1500), 120 * sin(alpha + t/1500))
+        (ax,ay) = (120 * cos(alpha + t/1.5), 120 * sin(alpha + t/1.5))
         image = group [form, text (toString i)]
       in
         move (ax,ay) image
