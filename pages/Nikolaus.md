@@ -13,7 +13,7 @@ scene _ _ =
   , path [ (-50,-65), (50,65) ]
   ]
 
-main = show scene Nothing
+main = display scene Nothing
 ```
 
 [share-elm](http://share-elm.com/sprout/54fcb824e4b0d720e25d6026)

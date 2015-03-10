@@ -16,7 +16,7 @@ scene _ t =
     , move (0, 100 * h) (circle 20)
     ]
 
-main = show scene (Just (Every 20))
+main = display scene (Just (Every 20))
 ```
 
 so dass ein auf und ab springender Ball zu sehen ist, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Bouncing.html).

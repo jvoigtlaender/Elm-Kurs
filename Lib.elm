@@ -32,8 +32,8 @@ grid =
 
 type Timing = Every Float | FPS Float
 
-show : ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
-show f mt =
+display : ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display f mt =
   let (x,y) = dimensions
       (timer, timerButt) = case mt of
         Nothing -> (Signal.constant 0, [])
