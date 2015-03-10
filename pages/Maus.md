@@ -1,10 +1,10 @@
-[Zurück](Kreise.md)
+[ZurÃ¼ck](Kreise.md)
 
 ---
 
-# Fünfte Aufgabe
+# FÃ¼nfte Aufgabe
 
-Vervollständige nun so, dass immer genau die Kreise rot sind, die näher am Koordinatenursprung sind als der Mauszeiger (und die anderen grün):
+VervollstÃ¤ndige nun so, dass immer genau die Kreise rot sind, die nÃ¤her am Koordinatenursprung sind als der Mauszeiger (und die anderen grÃ¼n):
 
 ```elm
 form (x,y) i =
@@ -36,10 +36,11 @@ Zielverhalten wie hier: [Reagieren auf Mausbewegungen](http://jvoigtlaender.gith
 
 ---
 
-Beispielausdrücke zur Erinnerung:
+BeispielausdrÃ¼cke zur Erinnerung:
 
 * `circle' (solid green) r`
 * `if ... then ... else ...`
+* `a/sqrt(12)`
 
 ---
 
