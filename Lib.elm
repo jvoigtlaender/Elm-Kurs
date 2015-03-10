@@ -37,9 +37,9 @@ display f mt =
   let (x,y) = dimensions
       (timer, timerButt) = case mt of
         Nothing -> (Signal.constant 0, [])
-        Just ti -> (Signal.map2 (\(a,_) (b,_) -> (a - b) / 1000)
+        Just ti -> (Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
                     (Time.timestamp <| case ti of
-                        {Every x -> Time.every (1000 * (if x < 0.017 then 0.017 else x));
+                        {Every x -> Time.every (if x < 0.017 then 17 else 1000 * x);
                          FPS x -> Time.fps (if x > 60 then 60 else x)})
                     (Time.timestamp (Signal.subscribe buttonCh))
                    , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
@@ -51,7 +51,7 @@ display f mt =
          , Graphics.Element.color (greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
-           ((if g then grid else []) ++ [f p (if t < 0 then 0 else t)]) ]
+           ((if g then grid else []) ++ [f p t]) ]
   in
    Signal.map3 fun Mouse.position timer (Signal.subscribe gridChan)
 
