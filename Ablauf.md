@@ -63,7 +63,7 @@ Erklärungen dabei:
 
 * Funktionen
 
-* Erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`.
+* Eventuell, erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`.
 
 # Vierte Aufgabe
 
@@ -93,7 +93,7 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 * `polygon`, `ngon`, `alpha`
 * Text alignments and styles
 * Styling and inspection of `Element`s (`width`, `height`, `size`, `color`, `opacity`, `widthOf`, `heightOf`, `sizeOf`)
-* `Element` stuff: `container`, `spacer`, `empty`, `flow`, `layers`, `above`, ...
+* `Element` stuff: `container`, `spacer`, `flow`, `layers`, `above`, ...
 * `link`, `tag`
 * `croppedImage`, `fittedImage`, `tiledImage`
 
