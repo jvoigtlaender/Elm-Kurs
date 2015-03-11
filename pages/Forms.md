@@ -31,7 +31,7 @@ Ein allgemeinerer Überblick mit Beispielen:
   führt zu:  
   ![text](../images/text.png)
 
-Da außer bei (absolut positioniertem) `path` die Formen zunächst immer um den Koordinatenursprung `(0,0)` zentriert sind, ist `move` nützlich.
+Da außer bei (absolut positioniertem) `path` die Formen zunächst immer um den Koordinatenursprung `(0,0)` zentriert sind, ist `move` oft nützlich.
 Zum Beispiel:
 
 ```elm
