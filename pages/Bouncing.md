@@ -9,11 +9,11 @@ Verändere folgendes Programm:
 ```elm
 scene _ t =
   let
-    h = t / 2
+    h = 50 * t
   in
     group
     [ path [ (-200,-20), (200,-20) ]
-    , move (0, 100 * h) (circle 20)
+    , circle 20 |> move (0,h)
     ]
 
 main = display scene (Just (Every 0.02))

@@ -20,10 +20,10 @@ scene (x,y) t =
   let
     fun i (form, alpha) =
       let
-        (ax,ay) = (120 * cos(alpha + t/1.5), 120 * sin(alpha + t/1.5))
+        (x',y') = (120 * cos(alpha + t/1.5), 120 * sin(alpha + t/1.5))
         image = group [form, text (toString i)]
       in
-        move (ax,ay) image
+        image |> move (x',y')
   in
     group (List.indexedMap (fun << toFloat) list)
 
@@ -41,6 +41,6 @@ Beispielausdrücke zur Erinnerung:
 
 * `rectangle (30,20)`
 * `path [ (0,0), (15,15), (30,-15), (40,5) ]`
-* `move (x,y) (circle' (dashed red) r)`
+* `circle' (dashed red) r |> move (x,y)`
 * `if ... then ... else ...`
 
