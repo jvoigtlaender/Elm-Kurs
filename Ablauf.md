@@ -63,8 +63,6 @@ Erklärungen dabei:
 
 * Funktionen
 
-* Eventuell, erst hinterher, Erwähnung von `scale : Float -> Form -> Form`, und bei der Gelegenheit auch von `rotate : Float -> Form -> Form`.
-
 # Vierte Aufgabe
 
 [Farbige Kreise](pages/Kreise.md)
@@ -96,4 +94,5 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 * `Element` stuff: `container`, `spacer`, `flow`, `layers`, `above`, ...
 * `link`, `tag`
 * `croppedImage`, `fittedImage`, `tiledImage`
+* `scale`, `rotate`
 
