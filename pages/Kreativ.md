@@ -20,17 +20,17 @@ scene (x,y) t =
   let
     fun i (form, alpha) =
       let
-        (x',y') = (120 * cos(alpha + t/1.5), 120 * sin(alpha + t/1.5))
+        (a,b) = (120 * cos(alpha + t/1.5), 120 * sin(alpha + t/1.5))
         image = group [form, text (toString i)]
       in
-        image |> move (x',y')
+        image |> move (a,b)
   in
     group (List.indexedMap (fun << toFloat) list)
 
 main = display scene (Just (FPS 50))
 ```
 
-so dass interessantes, von sowohl der Zeit als auch der Mausbewegung abhängiges Verhalten entsteht.
+so dass interessantes, von sowohl der Mausbewegung als auch der Zeit abhängiges Verhalten entsteht.
 Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreativ.html).
 
 Der Kreativität freien Lauf!

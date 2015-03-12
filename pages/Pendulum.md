@@ -9,7 +9,7 @@ Verändere folgendes Programm:
 ```elm
 scene _ t =
   let
-    alpha = cos (2*t) * pi/3
+    alpha = cos(2*t) * pi/3
     a = 100 * alpha
     b = -100
   in
@@ -22,7 +22,7 @@ scene _ t =
 main = display scene (Just (Every 0.02))
 ```
 
-so dass das Pendel eine realistische Bewegung durchführt, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Pendulum.html).
+so dass das Pendel eine realistische Bewegung ausführt, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Pendulum.html).
 
 [share-elm](http://share-elm.com/sprout/5501cb16e4b0d720e25d620a)
 
