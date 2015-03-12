@@ -8,7 +8,7 @@ Passe so an, dass von den 10 konzentrischen Kreisen die inneren fünf rot, die äu
 
 ```elm
 form i =
-  circle (10*i)
+  circle (10 * i)
 
 scene _ _ =
   group
@@ -40,7 +40,7 @@ Hinweise:
 
 * Um abhängig von irgendeiner Bedingung verschiedene Ergebnisse (zum Beispiel einer Funktion wie `form i = ...`) zu liefern, lässt sich `if ... then ... else ...` verwenden.
 
-Zielbild, etwa:
+Zielbild:
 
 ![Farbige Kreise](../images/Kreise.png)
 
