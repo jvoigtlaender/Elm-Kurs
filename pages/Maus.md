@@ -46,5 +46,5 @@ Beispielausdrücke zur Erinnerung:
 
 ---
 
-[Weiter](Bouncing.md)
+[Weiter](Pendulum.md)
 

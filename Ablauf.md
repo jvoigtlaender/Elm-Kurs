@@ -73,11 +73,15 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 
 # Fünfte Aufgabe
 
-[Zeitabhängiges Verhalten](pages/Bouncing.md)
+[Zeitabhängiges Verhalten](pages/Pendulum.md)
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 # Sechste Aufgabe
+
+[Wieder zeitabhängiges Verhalten](pages/Bouncing.md)
+
+# Siebte Aufgabe
 
 [Freies Spiel der Kräfte](pages/Kreativ.md)
 

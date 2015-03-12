@@ -2,7 +2,7 @@
 
 ---
 
-# Sechste Aufgabe
+# Siebte Aufgabe
 
 Verändere folgendes Programm:
 
