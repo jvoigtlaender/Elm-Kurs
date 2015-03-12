@@ -41,7 +41,7 @@ Erklärungen:
 
 # Dritte Aufgabe
 
-[Inkreis](pages/Inkreis.md)
+[Farbige Kreise](pages/Kreise.md)
 
 Erklärungen dabei:
 
@@ -63,27 +63,27 @@ Erklärungen dabei:
 
 * Funktionen
 
+* `if ... then ... else ...`
+
 # Vierte Aufgabe
-
-[Farbige Kreise](pages/Kreise.md)
-
-Erklärung dabei: `if - then - else -`
-
-# Fünfte Aufgabe
 
 [Reagieren auf Mausbewegungen](pages/Maus.md)
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Mauskoordinaten
 
-# Sechste Aufgabe
+# Fünfte Aufgabe
 
 [Zeitabhängiges Verhalten](pages/Bouncing.md)
 
 Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
-# Siebte Aufgabe
+# Sechste Aufgabe
 
 [Freies Spiel der Kräfte](pages/Kreativ.md)
+
+# Weggelassene Aufgabe
+
+[Inkreis](pages/Inkreis.md)
 
 # Bewusst ignorierte Dinge
 

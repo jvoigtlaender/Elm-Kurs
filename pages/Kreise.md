@@ -1,13 +1,14 @@
-[Zurück](Inkreis.md)
+[Zurück](Re-Use.md)
 
 ---
 
-# Vierte Aufgabe
+# Dritte Aufgabe
 
-Vervollständige, um 10 konzentrische Kreise zu malen, von denen die inneren fünf rot, die äußeren fünf grün sind:
+Passe so an, dass von den 10 konzentrischen Kreisen die inneren fünf rot, die äußeren fünf grün sind:
 
 ```elm
-form i = ...
+form i =
+  circle (10*i)
 
 scene _ _ =
   group
@@ -28,15 +29,19 @@ main = display scene Nothing
 
 [share-elm](http://share-elm.com/sprout/54fcb943e4b0d720e25d602b)
 
+* Hinweis zum Styling:  
+  Von den Funktionen `rectangle`, `square`, `circle`, `oval`, `path` gibt es Varianten, die uns das Aussehen der gezeichneten Linien verändern lassen.
+  Während zum Beispiel `rectangle' (solid black) (30,20)` äquivalent zum schon gesehenen `rectangle (30,20)` ist, geht auch `rectangle' (dashed red) (30,20)`:  
+  ![rectangle'](../images/rectangle'.png)  
+  oder auch etwa `oval' (dotted blue) (30,20)`:  
+  ![oval'](../images/oval'.png)  
+  Eine Übersicht vorhandener Farben und Möglichkeiten zur Erzeugung neuer findet man bei Bedarf [hier](http://package.elm-lang.org/packages/elm-lang/core/latest/Color).
+
+* Um abhängig von irgendeiner Bedingung verschiedene Ergebnisse (zum Beispiel einer Funktion wie `form`) zu liefern, lässt sich `if ... then ... else ...` verwenden.
+
 Zielbild, etwa:
 
 ![Farbige Kreise](../images/Kreise.png)
-
----
-
-Beispiel zur Erinnerung Styling:
-
-* `circle' (solid red) 10`
 
 ---
 
