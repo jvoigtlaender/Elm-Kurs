@@ -6,7 +6,17 @@
 
 Mache aus dem einen Haus des Nikolaus drei nebeneinander stehende Häuser des Nikolaus.
 
-Hinweis: Ausdrücke lassen sich benennen und so mehrmals wiederverwenden.
+Hinweis: Ausdrücke, zum Beispiel solche die Bilder beschreiben, lassen sich benennen (mit kleingeschriebenem Namen) und so mehrmals wiederverwenden. Zum Beispiel so:
+
+```elm
+nikolaus =
+  group
+  [ ... ]
+
+scene _ _ =
+  group
+  [ ... benutzt nikolaus ... ]
+```
 
 ---
 
