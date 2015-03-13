@@ -19,7 +19,7 @@ scene _ t =
     ]
     |> move (0,50)
 
-main = display scene (Just (Every 0.02))
+main = display (400,300) scene (Just (Every 0.02))
 ```
 
 so dass das Pendel eine realistische Bewegung ausführt, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Pendulum.html).

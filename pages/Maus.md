@@ -27,7 +27,7 @@ scene (x,y) _ =
   , form (x,y) 10
   ]
 
-main = display scene Nothing
+main = display (400,300) scene Nothing
 ```
 
 [share-elm](http://share-elm.com/sprout/54fcb9c2e4b0d720e25d602d)

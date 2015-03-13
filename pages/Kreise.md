@@ -24,7 +24,7 @@ scene _ _ =
   , form 10
   ]
 
-main = display scene Nothing
+main = display (400,300) scene Nothing
 ```
 
 [share-elm](http://share-elm.com/sprout/54fcb943e4b0d720e25d602b)

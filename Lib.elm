@@ -10,15 +10,11 @@ import Graphics.Collage
 import Graphics.Element
 import Graphics.Input
 
-dimensions = (400,300)
-
----------------------
-
 gridsize = 20
 
-grid =
+makeGrid : (Float,Float) -> List Form
+makeGrid (x,y) =
   let
-    (x,y) = dimensions
     xh = x/2
     yh = y/2
     i = floor(xh/gridsize)
@@ -32,9 +28,13 @@ grid =
 
 type Timing = Every Float | FPS Float
 
-display : ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
-display f mt =
-  let (x,y) = dimensions
+display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display (x,y) f mt =
+  let x' = toFloat x
+      y' = toFloat y
+      grid = group (makeGrid (x',y'))
+      xh = x'/2
+      yh = y'/2
       (timer, timerButt) = case mt of
         Nothing -> (Signal.constant 0, [])
         Just ti -> (Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
@@ -44,14 +44,14 @@ display f mt =
                     (Time.timestamp (Signal.subscribe buttonCh))
                    , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
       fun (px,py) t g =
-        let p = (toFloat px - x/2, y/2 - toFloat py)
+        let p = (toFloat px - xh, yh - toFloat py)
         in
          Graphics.Element.flow Graphics.Element.up
          [ Graphics.Element.flow Graphics.Element.left <| Text.asText p :: gridCheck :: timerButt
          , Graphics.Element.color (greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
-           ((if g then grid else []) ++ [f p t]) ]
+           ((if g then [ grid ] else []) ++ [f p t]) ]
   in
    Signal.map3 fun Mouse.position timer (Signal.subscribe gridChan)
 
