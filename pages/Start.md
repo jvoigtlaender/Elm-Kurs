@@ -8,10 +8,10 @@ Als kurze Impressionen, was damit möglich ist:
 * [2048 clone](http://aergus.github.io/spot/)
 * [Geometry App](http://fanzier.github.io/elm-geometry/)
 
-Einige allgemeine Anweisungen zum Vorgehen:
+Links (Erklärungen dazu mündlich):
 
-* Verwendung von [Lib.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/Lib.elm)
-* ...
+* [Live-Editor](http://elm-lang.org/try)
+* [Lib.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/Lib.elm)
 
 ---
 
