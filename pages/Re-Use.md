@@ -15,7 +15,7 @@ nikolaus =
 
 scene _ _ =
   group
-  [ ... benutzt nikolaus ... ]
+  [ ... benutzt nikolaus, vielleicht mehrmals ... ]
 ```
 
 ---
