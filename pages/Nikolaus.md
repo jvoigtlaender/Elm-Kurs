@@ -16,7 +16,7 @@ scene _ _ =
 main = display (400,300) scene Nothing
 ```
 
-[share-elm](http://share-elm.com/sprout/54fcb824e4b0d720e25d6026)
+[share-elm](http://share-elm.com/sprout/55069ed7e4b0d720e25d62f7)
 
 Zielbild, etwa:
 
