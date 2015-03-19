@@ -30,7 +30,7 @@ scene (x,y) _ =
 main = display (400,300) scene Nothing
 ```
 
-[share-elm](http://share-elm.com/sprout/55069fd7e4b0d720e25d62fc)
+[share-elm](http://share-elm.com/sprout/550b0167e4b0d720e25d647a)
 
 Zusätzlich zu den bisherigen Möglichkeiten stehen nun in `x` und `y` immer die Koordinaten der jeweils aktuellen Mausposition zur Verfügung.
 Das gezeichnete Bild ist also nicht mehr statisch, sondern reagiert auf Mausbewegungen.

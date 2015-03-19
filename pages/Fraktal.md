@@ -4,7 +4,7 @@
 
 # Zusatzaufgabe
 
-Verändere folgendes Programm:
+Vervollständige folgendes Programm:
 
 ```elm
 scene _ _ =
@@ -26,7 +26,9 @@ sierpinski i =
 main = display (400,300) scene Nothing
 ```
 
-so dass `sierpinski i` jeweils die `i`. Stufe des [Sierpinski-Dreiecks](http://de.wikipedia.org/wiki/Sierpinski-Dreieck) darstellt, wobei der Umkreisradius des Gesamtdreiecks gleich `120` sei.
+so dass `sierpinski i` jeweils die `i`. Stufe des [Sierpinski-Dreiecks](http://de.wikipedia.org/wiki/Sierpinski-Dreieck) darstellt, wobei der Umkreisradius des Gesamtdreiecks gleich `120` sein soll.
+
+[share-elm](http://share-elm.com/sprout/550b0051e4b0d720e25d6465)
 
 Hinweise:
 
