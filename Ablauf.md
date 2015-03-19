@@ -85,6 +85,10 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 [Freies Spiel der Kräfte](pages/Kreativ.md)
 
+# Zusatzaufgabe
+
+[Sierpinski-Dreieck](pages/Fraktal.md)
+
 # Weggelassene Aufgabe
 
 [Inkreis](pages/Inkreis.md)
@@ -92,11 +96,11 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 # Bewusst ignorierte Dinge
 
 * (vielleicht beiläufig erwähnen:) `filled`, `textured`, `gradient`
-* `polygon`, `ngon`, `alpha`
+* `polygon`, `alpha`
 * Text alignments and styles
 * Styling and inspection of `Element`s (`width`, `height`, `size`, `color`, `opacity`, `widthOf`, `heightOf`, `sizeOf`)
 * `Element` stuff: `container`, `spacer`, `flow`, `layers`, `above`, ...
 * `link`, `tag`
 * `croppedImage`, `fittedImage`, `tiledImage`
-* `scale`, `rotate`
+* `rotate`
 

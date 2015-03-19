@@ -103,13 +103,14 @@ square' s a =
   Graphics.Collage.outlined s <|
   Graphics.Collage.square a
 
-ngon : Int -> Float -> Form
-ngon = ngon' Graphics.Collage.defaultLine
+ngon : Float -> Float -> Form
+ngon = ngon' black
 
-ngon' : LineStyle -> Int -> Float -> Form
-ngon' s n r =
-  Graphics.Collage.outlined s <|
-  Graphics.Collage.ngon n r
+ngon' : Color -> Float -> Float -> Form
+ngon' c n r =
+  rotate (pi/2) <|
+  Graphics.Collage.filled c <|
+  Graphics.Collage.ngon (floor n) r
 
 polygon : List (Float,Float) -> Form
 polygon = polygon' Graphics.Collage.defaultLine

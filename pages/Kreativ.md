@@ -44,3 +44,7 @@ Beispielausdrücke zur Erinnerung:
 * `circle' (dashed red) r |> move (x,y)`
 * `if ... then ... else ...`
 
+---
+
+[Zusatz](Fraktal.md)
+
