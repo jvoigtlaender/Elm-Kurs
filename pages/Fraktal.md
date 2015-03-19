@@ -32,7 +32,7 @@ so dass `sierpinski i` jeweils die `i`. Stufe des [Sierpinski-Dreiecks](http://d
 
 Hinweise:
 
-* Der Ausdruck `ngon 3 120` beschreibt die Fläche eines regelmäßigen `3`-Ecks mit Umkreisradius `120`.
+* Der Ausdruck `ngon 3 120` beschreibt die (ausgefüllte) Fläche eines regelmäßigen `3`-Ecks mit Umkreisradius `120`.
 
 * Analog zu `|> move ...` wirkt `|> scale ...` auf ein beliebiges Teilbild, verschiebt dieses jedoch nicht, sondern streckt/staucht es.
 
