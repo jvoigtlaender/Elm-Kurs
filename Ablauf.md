@@ -102,5 +102,4 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 * `Element` stuff: `container`, `spacer`, `flow`, `layers`, `above`, ...
 * `link`, `tag`
 * `croppedImage`, `fittedImage`, `tiledImage`
-* `rotate`
 
