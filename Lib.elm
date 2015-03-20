@@ -28,24 +28,25 @@ makeGrid (x,y) =
 
 type Timing = Every Float | FPS Float
 
+display' : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display' (x,y) f mt =
+  let tr = case mt of
+             Nothing -> Signal.constant 0
+             Just ti -> makeTimer ti
+      fun p t = Graphics.Collage.collage x y [f p t]
+  in
+   toScreen (toFloat x, toFloat y) (Signal.constant fun) tr (Signal.constant ())
+
 display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display (x,y) f mt =
   let x' = toFloat x
       y' = toFloat y
       grid = group (makeGrid (x',y'))
-      xh = x'/2
-      yh = y'/2
-      (timer, timerButt) = case mt of
-        Nothing -> (Signal.constant 0, [])
-        Just ti -> (Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
-                    (Time.timestamp <| case ti of
-                        {Every x -> Time.every (if x < 0.017 then 17 else 1000 * x);
-                         FPS x -> Time.fps (if x > 60 then 60 else x)})
-                    (Time.timestamp (Signal.subscribe buttonCh))
-                   , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
-      fun (px,py) t g =
-        let p = (toFloat px - xh, yh - toFloat py)
-        in
+      (tr, timerButt) = case mt of
+                          Nothing -> ( Signal.constant 0, [])
+                          Just ti -> ( makeTimer ti
+                                     , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
+      fun g p t =
          Graphics.Element.flow Graphics.Element.up
          [ Graphics.Element.flow Graphics.Element.left <| Text.asText p :: gridCheck :: timerButt
          , Graphics.Element.color (greyscale 0.05) <|
@@ -53,7 +54,24 @@ display (x,y) f mt =
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [f p t]) ]
   in
-   Signal.map3 fun Mouse.position timer (Signal.subscribe gridChan)
+   toScreen (x',y') (Signal.map fun (Signal.subscribe gridChan)) tr (Signal.subscribe buttonCh)
+
+makeTimer ti =
+  case ti of
+    Every f -> Time.every (if f < 0.017 then 17 else 1000 * f)
+    FPS f -> Time.fps (if f > 60 then 60 else f)
+
+toScreen : (Float,Float) -> Signal ((Float,Float) -> Float -> Graphics.Element.Element) -> Signal a -> Signal b -> Signal Graphics.Element.Element
+toScreen (x',y') funs tr tx =
+  let
+    xh = x'/2
+    yh = y'/2
+    timer =
+      Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
+      (Time.timestamp tr)
+      (Time.timestamp tx)
+  in
+   Signal.map3 (\f (px,py) -> f (toFloat px - xh, yh - toFloat py)) funs Mouse.position timer
 
 buttonCh = Signal.channel ()
 
