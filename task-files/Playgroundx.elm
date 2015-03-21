@@ -13,7 +13,7 @@ scene _ _ =
   [ sierpinski 4 ]
 
 sierpinski i = 
-  if i>0
+  if i > 0
     then
       let 
         s = group
