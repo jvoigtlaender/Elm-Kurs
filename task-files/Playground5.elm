@@ -16,7 +16,7 @@ scene _ t =
   in
     group
     [ path [ (0,0), (a,b) ]
-    , move (a,b) (circle 10)
+    , circle 10 |> move (a,b)
     ]
     |> move (0,50)
 
