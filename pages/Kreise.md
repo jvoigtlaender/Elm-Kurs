@@ -27,7 +27,7 @@ scene _ _ =
 main = display (400,300) scene Nothing
 ```
 
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playground3.elm), [@share-elm](http://share-elm.com/sprout/550dbcdce4b0d720e25d6503/0.14/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/riegel-campus-2015/task-files/Playground3.elm), [@share-elm](http://share-elm.com/sprout/550dbcdce4b0d720e25d6503/0.14/view)
 
 Hinweise:
 
@@ -36,7 +36,7 @@ Hinweise:
   ![rectangle'](../images/rectangle'.png)  
   oder auch etwa `oval' (dotted blue) (30,20)`:  
   ![oval'](../images/oval'.png)  
-  Eine Übersicht vorhandener Farben und Möglichkeiten zur Erzeugung neuer findet man bei Bedarf [hier](http://package.elm-lang.org/packages/elm-lang/core/latest/Color).
+  Eine Übersicht vorhandener Farben und Möglichkeiten zur Erzeugung neuer findet man bei Bedarf [hier](http://package.elm-lang.org/packages/elm-lang/core/1.1.1/Color).
 
 * Um abhängig von irgendeiner Bedingung verschiedene Ergebnisse (zum Beispiel einer Funktion wie `form i = ...`) zu liefern, lässt sich `if ... then ... else ...` verwenden.
 

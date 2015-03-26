@@ -33,7 +33,7 @@ main = display (400,300) scene (Just (FPS 50))
 so dass interessantes, von sowohl der Mausbewegung als auch der Zeit abhängiges Verhalten entsteht.
 Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/riegel-campus-2015/Kreativ.html).
 
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playground7.elm)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/riegel-campus-2015/task-files/Playground7.elm)
 
 Der Kreativität freien Lauf!
 

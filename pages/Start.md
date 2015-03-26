@@ -11,7 +11,7 @@ Als kurze Impressionen, was damit möglich ist:
 Links (Erklärungen dazu mündlich):
 
 * [Live-Editor](http://elm-lang.org/try)
-* [Playground.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/Playground.elm)
+* [Playground.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/riegel-campus-2015/Playground.elm)
 
 ---
 
