@@ -42,5 +42,5 @@ Zielbild, für `i = 4`:
 
 ![Sierpinski-Dreieck](../images/Sierpinski.png)
 
-Zusatz: Setze eine andere fraktale Darstellung um. Als Inspiration mag [dies hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/DancingTree.html) dienen. Nützlich ist als weitere "Bildmanipulation" neben `|> move ...` und `|> scale ...` auch noch `|> rotate ...`.
+Zusatz: Setze eine andere fraktale Darstellung um. Als Inspiration mag [dies hier](http://jvoigtlaender.github.io/Elm-Kurs/riegel-campus-2015/DancingTree.html) dienen. Nützlich ist als weitere "Bildmanipulation" neben `|> move ...` und `|> scale ...` auch noch `|> rotate ...`.
 

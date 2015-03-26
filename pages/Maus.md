@@ -35,7 +35,7 @@ main = display (400,300) scene Nothing
 Zusätzlich zu den bisherigen Möglichkeiten stehen nun in `x` und `y` immer die Koordinaten der jeweils aktuellen Mausposition zur Verfügung.
 Das gezeichnete Bild ist also nicht mehr statisch, sondern reagiert auf Mausbewegungen.
 
-Zielverhalten wie hier: [Reagieren auf Mausbewegungen](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreise.html).
+Zielverhalten wie hier: [Reagieren auf Mausbewegungen](http://jvoigtlaender.github.io/Elm-Kurs/riegel-campus-2015/Kreise.html).
 
 ---
 
