@@ -16,7 +16,7 @@ scene _ _ =
 main = display (400,300) scene Nothing
 ```
 
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playground1.elm), [@share-elm](http://share-elm.com/sprout/550db9f2e4b0d720e25d64f3)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playground1.elm), [@share-elm](http://share-elm.com/sprout/550db9f2e4b0d720e25d64f3/0.14/view)
 
 Zielbild, etwa:
 
