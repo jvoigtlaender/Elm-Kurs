@@ -1,7 +1,7 @@
 import Text
 import Time
-import List (..)
-import Color (..)
+import List exposing (..)
+import Color exposing (..)
 import Mouse
 import Signal
 import Graphics.Collage
@@ -71,16 +71,16 @@ display (x,y) f mt =
       (tr, timerButt) = case mt of
                           Nothing -> ( Signal.constant 0, [])
                           Just ti -> ( makeTimer ti
-                                     , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.send buttonCh ()) "Zeit auf Null" ] )
+                                     , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message buttonMbx.address ()) "Zeit auf Null" ] )
       fun g p t =
          Graphics.Element.flow Graphics.Element.up
-         [ Graphics.Element.flow Graphics.Element.left <| Text.asText p :: gridCheck :: timerButt
+         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck :: timerButt
          , Graphics.Element.color (greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [f p t]) ]
   in
-   toScreen (x',y') (Signal.map fun (Signal.subscribe gridChan)) tr (Signal.subscribe buttonCh)
+   toScreen (x',y') (Signal.map fun gridMbx.signal) tr buttonMbx.signal
 
 makeTimer ti =
   case ti of
@@ -99,11 +99,11 @@ toScreen (x',y') funs tr tx =
   in
    Signal.map3 (\f (px,py) -> f (toFloat px - xh, yh - toFloat py)) funs Mouse.position timer
 
-buttonCh = Signal.channel ()
+buttonMbx = Signal.mailbox ()
 
-gridChan = Signal.channel False
+gridMbx = Signal.mailbox False
 
-gridCheck = Graphics.Input.checkbox (Signal.send gridChan) False
+gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address) False
 
 type alias Form = Graphics.Collage.Form
 
@@ -166,7 +166,9 @@ polygon' s ps =
 
 text : String -> Form
 text s =
-  Graphics.Collage.toForm <| Text.plainText s
+  Graphics.Collage.toForm <|
+  Graphics.Element.leftAligned <|
+  Text.fromString s
 
 move : (Float,Float) -> Form -> Form
 move = Graphics.Collage.move
@@ -195,7 +197,9 @@ dotted : Color -> LineStyle
 dotted = Graphics.Collage.dotted
 
 image : (Float,Float) -> String -> Form
-image (x,y) s = Graphics.Collage.toForm (Graphics.Element.image (round x) (round y) s)
+image (x,y) s =
+  Graphics.Collage.toForm <|
+  Graphics.Element.image (round x) (round y) s
 
 empty : Form
 empty = Graphics.Collage.toForm Graphics.Element.empty
