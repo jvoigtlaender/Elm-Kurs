@@ -28,7 +28,7 @@ main = display (400,300) scene Nothing
 
 so dass `sierpinski i` jeweils die `i`. Stufe des [Sierpinski-Dreiecks](http://de.wikipedia.org/wiki/Sierpinski-Dreieck) darstellt, wobei der Umkreisradius des Gesamtdreiecks gleich `120` sein soll.
 
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playgroundx.elm), [@share-elm](http://share-elm.com/sprout/550dbf27e4b0d720e25d650f/0.14/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playgroundx.elm), [@share-elm](http://share-elm.com/sprout/553a8883e4b06aacf0e89841/0.15/view)
 
 Hinweise:
 
