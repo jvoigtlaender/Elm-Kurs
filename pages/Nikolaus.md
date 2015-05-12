@@ -17,7 +17,7 @@ main = display (400,300) scene Nothing
 ```
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playground1.elm), [@share-elm](http://share-elm.com/sprout/553a8a56e4b06aacf0e89849/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground1.elm), [@share-elm](http://share-elm.com/sprout/553a8a56e4b06aacf0e89849/0.15/view)
 -->
 
 Zielbild, etwa:

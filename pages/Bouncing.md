@@ -22,7 +22,7 @@ main = display (400,300) scene (Just (FPS 50))
 so dass ein auf und ab springender Ball zu sehen ist, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Bouncing.html).
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/task-files/Playground6.elm), [@share-elm](http://share-elm.com/sprout/553a87d4e4b06aacf0e8983e/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground6.elm), [@share-elm](http://share-elm.com/sprout/553a87d4e4b06aacf0e8983e/0.15/view)
 -->
 
 ---

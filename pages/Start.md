@@ -11,7 +11,7 @@ Als kurze Impressionen, was damit möglich ist:
 Links (Erklärungen dazu mündlich):
 
 * [Live-Editor](http://elm-lang.org/try)
-* [Lib.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/Lib.elm)
+* [Lib.elm](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/lib/Lib.elm)
 
 ---
 
