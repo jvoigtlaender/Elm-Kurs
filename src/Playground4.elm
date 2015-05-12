@@ -1,4 +1,4 @@
-import Lib
+import Lib exposing (..)
 
 form (x,y) i =
   let

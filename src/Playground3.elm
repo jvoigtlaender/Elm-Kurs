@@ -1,4 +1,4 @@
-import Lib
+import Lib exposing (..)
 
 form i =
   circle (10 * i)

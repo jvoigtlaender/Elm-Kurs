@@ -1,4 +1,4 @@
-import Lib
+import Lib exposing (..)
 
 list =
   [ (circle 10, 0)

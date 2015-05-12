@@ -1,4 +1,4 @@
-import Lib
+import Lib exposing (..)
 
 scene _ t =
   let
