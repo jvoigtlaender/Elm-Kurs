@@ -1,4 +1,5 @@
 import Lib exposing (..)
+import Color exposing (..)
 
 form i =
   circle (10 * i)

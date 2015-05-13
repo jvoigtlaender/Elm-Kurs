@@ -1,4 +1,5 @@
 import Lib exposing (..)
+import Color exposing (..)
 
 form (x,y) i =
   let

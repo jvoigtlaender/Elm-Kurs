@@ -2,13 +2,11 @@ module Lib where
 
 import Text
 import Time
-import List exposing (..)
-import Color exposing (..)
 import Mouse
-import Signal
 import Graphics.Collage
 import Graphics.Element
 import Graphics.Input
+import Color
 
 gridsize = 20
 
@@ -20,11 +18,11 @@ makeGrid (x,y) =
     i = floor(xh/gridsize)
     j = floor(yh/gridsize)
   in
-   map (\i -> let x = toFloat i * gridsize in path' (dotted (greyscale 0.15)) [ (x,-yh), (x,yh) ]) [ -i .. i ]
+   List.map (\i -> let x = toFloat i * gridsize in path' (dotted (Color.greyscale 0.15)) [ (x,-yh), (x,yh) ]) [ -i .. i ]
    ++
-   map (\j -> let y = toFloat j * gridsize in path' (dotted (greyscale 0.15)) [ (-xh,y), (xh,y) ]) [ -j .. j ]
+   List.map (\j -> let y = toFloat j * gridsize in path' (dotted (Color.greyscale 0.15)) [ (-xh,y), (xh,y) ]) [ -j .. j ]
    ++
-   [Graphics.Collage.filled red (Graphics.Collage.circle 2)]
+   [Graphics.Collage.filled Color.red (Graphics.Collage.circle 2)]
 
 type Timing = Every Float | FPS Float
 
@@ -49,7 +47,7 @@ display (x,y) f mt =
       fun g p t =
          Graphics.Element.flow Graphics.Element.up
          [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck :: timerButt
-         , Graphics.Element.color (greyscale 0.05) <|
+         , Graphics.Element.color (Color.greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [f p t]) ]
@@ -121,8 +119,10 @@ square' s a =
   Graphics.Collage.outlined s <|
   Graphics.Collage.square a
 
+type alias Color = Color.Color
+
 ngon : Float -> Float -> Form
-ngon = ngon' black
+ngon = ngon' Color.black
 
 ngon' : Color -> Float -> Float -> Form
 ngon' c n r =
