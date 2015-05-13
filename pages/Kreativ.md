@@ -7,7 +7,7 @@
 Verändere folgendes Programm:
 
 ```elm
-import List
+import Color exposing (..)
 
 list =
   [ (circle 10, 0)

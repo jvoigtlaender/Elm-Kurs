@@ -7,6 +7,8 @@
 Passe so an, dass von den 10 konzentrischen Kreisen die inneren fünf rot, die äußeren fünf grün sind:
 
 ```elm
+import Color exposing (..)
+
 form i =
   circle (10 * i)
 
