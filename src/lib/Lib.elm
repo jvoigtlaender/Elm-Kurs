@@ -40,6 +40,9 @@ display (x,y) f mt =
   let x' = toFloat x
       y' = toFloat y
       grid = group (makeGrid (x',y'))
+      buttonMbx = Signal.mailbox ()
+      gridMbx = Signal.mailbox False
+      gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address) False
       (tr, timerButt) = case mt of
                           Nothing -> ( Signal.constant 0, [])
                           Just ti -> ( makeTimer ti
@@ -70,12 +73,6 @@ toScreen (x',y') funs tr tx =
       (Time.timestamp tx)
   in
    Signal.map3 (\f (px,py) -> f (toFloat px - xh, yh - toFloat py)) funs Mouse.position timer
-
-buttonMbx = Signal.mailbox ()
-
-gridMbx = Signal.mailbox False
-
-gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address) False
 
 type alias Form = Graphics.Collage.Form
 
