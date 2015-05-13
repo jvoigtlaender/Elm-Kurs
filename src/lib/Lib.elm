@@ -138,8 +138,7 @@ polygon' s ps =
 
 text : String -> Form
 text s =
-  Graphics.Collage.toForm <|
-  Graphics.Element.leftAligned <|
+  Graphics.Collage.text <|
   Text.fromString s
 
 move : (Float,Float) -> Form -> Form
