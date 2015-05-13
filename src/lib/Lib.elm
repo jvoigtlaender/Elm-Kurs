@@ -6,6 +6,7 @@ import Mouse
 import Graphics.Collage
 import Graphics.Element
 import Graphics.Input
+import Html
 import Color
 
 gridsize = 20
@@ -175,3 +176,13 @@ image (x,y) s =
 empty : Form
 empty = Graphics.Collage.toForm Graphics.Element.empty
 
+icon : Float -> (Color -> Int -> Html.Html) -> Form
+icon = icon' Color.black
+
+icon' : Color -> Float -> (Color -> Int -> Html.Html) -> Form
+icon' c s i =
+  let s' = round s
+  in
+   Graphics.Collage.toForm <|
+   Html.toElement s' s' <|
+   i c s'
