@@ -30,6 +30,7 @@ so dass das Pendel eine realistische Bewegung ausführt, wie etwa [hier](http://j
 
 Das `Just (Every 0.02)` (statt vorher `Nothing`) steht dafür, dass alle 0.02 Sekunden ein neues Bild (mit aktuellem Zeitparameter `t`, ebenfalls in Sekunden angegeben) gezeichnet werden soll.
 Alternativ ist auch die Angabe einer Frames-per-Sekunde-Rate möglich, etwa mit: `Just (FPS 50)`.
+Außerdem kann man die Entscheidung auch einfach an den Browser delegieren, also sich an dessen Frame-Rate koppeln, mittels: `Just AnimationFrame`.
 
 ---
 
