@@ -2,6 +2,7 @@ module Lib where
 
 import Text
 import Time
+import AnimationFrame
 import Mouse
 import Graphics.Collage
 import Graphics.Element
@@ -25,7 +26,7 @@ makeGrid (x,y) =
    ++
    [Graphics.Collage.filled Color.red (Graphics.Collage.circle 2)]
 
-type Timing = Every Float | FPS Float
+type Timing = Every Float | FPS Float | AnimationFrame
 
 display' : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display' (x,y) f mt =
@@ -62,6 +63,7 @@ makeTimer ti =
   case ti of
     Every f -> Time.every (if f < 0.017 then 17 else 1000 * f)
     FPS f -> Time.fps (if f > 60 then 60 else f)
+    AnimationFrame -> AnimationFrame.frame
 
 toScreen : (Float,Float) -> Signal ((Float,Float) -> Float -> Graphics.Element.Element) -> Signal a -> Signal b -> Signal Graphics.Element.Element
 toScreen (x',y') funs tr tx =
