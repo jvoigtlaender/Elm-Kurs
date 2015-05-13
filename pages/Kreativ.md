@@ -39,6 +39,10 @@ Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreativ
 
 Der Kreativität freien Lauf!
 
+Zusätzliche Ausdrucksmöglichkeiten ergeben sich durch [Font Awesome Icons](http://fontawesome.io/icons/).
+Dafür muss zu Beginn noch ein `import FontAwesome` hinzu, dann zum Beispiel Verwendung von `icon 20 FontAwesome.space_shuttle` oder `icon' red 30 FontAwesome.ambulance`.
+(Die passenden Namen finden Sie [hier](http://package.elm-lang.org/packages/jystic/elm-font-awesome/latest/FontAwesome).)
+
 ---
 
 Beispielausdrücke zur Erinnerung:
