@@ -33,31 +33,30 @@ display' (x,y) f mt =
   let tr = case mt of
              Nothing -> Signal.constant 0
              Just ti -> makeTimer ti
-      fun p t = Graphics.Collage.collage x y [f p t]
+      fun _ p t = Graphics.Collage.collage x y [f p t]
   in
-   toScreen (toFloat x, toFloat y) (Signal.constant fun) tr (Signal.constant ())
+   toScreen (toFloat x, toFloat y) (Signal.constant fun) tr
 
 display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display (x,y) f mt =
   let x' = toFloat x
       y' = toFloat y
       grid = group (makeGrid (x',y'))
-      buttonMbx = Signal.mailbox ()
       gridMbx = Signal.mailbox False
       gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address) False
       (tr, timerButt) = case mt of
-                          Nothing -> ( Signal.constant 0, [])
+                          Nothing -> ( Signal.constant 0, always [])
                           Just ti -> ( makeTimer ti
-                                     , [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message buttonMbx.address ()) "Zeit auf Null" ] )
-      fun g p t =
+                                     , \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) "Zeit auf Null" ] )
+      fun g address p t =
          Graphics.Element.flow Graphics.Element.up
-         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck :: timerButt
+         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck :: timerButt address
          , Graphics.Element.color (Color.greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [f p t]) ]
   in
-   toScreen (x',y') (Signal.map fun gridMbx.signal) tr buttonMbx.signal
+   toScreen (x',y') (Signal.map fun gridMbx.signal) tr
 
 makeTimer ti =
   case ti of
@@ -65,17 +64,18 @@ makeTimer ti =
     FPS f -> Time.fps (if f > 60 then 60 else f)
     AnimationFrame -> AnimationFrame.frame
 
-toScreen : (Float,Float) -> Signal ((Float,Float) -> Float -> Graphics.Element.Element) -> Signal a -> Signal b -> Signal Graphics.Element.Element
-toScreen (x',y') funs tr tx =
+toScreen : (Float,Float) -> Signal (Signal.Address () -> (Float,Float) -> Float -> Graphics.Element.Element) -> Signal a -> Signal Graphics.Element.Element
+toScreen (x',y') funs tr =
   let
     xh = x'/2
     yh = y'/2
+    buttonMbx = Signal.mailbox ()
     timer =
       Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
       (Time.timestamp tr)
-      (Time.timestamp tx)
+      (Time.timestamp buttonMbx.signal)
   in
-   Signal.map3 (\f (px,py) -> f (toFloat px - xh, yh - toFloat py)) funs Mouse.position timer
+   Signal.map3 (\f (px,py) -> f buttonMbx.address (toFloat px - xh, yh - toFloat py)) funs Mouse.position timer
 
 type alias Form = Graphics.Collage.Form
 
