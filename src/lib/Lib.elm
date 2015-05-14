@@ -4,6 +4,7 @@ import Text
 import Time
 import AnimationFrame
 import Signal.Extra
+import Maybe.Extra
 import Mouse
 import Graphics.Collage
 import Graphics.Element
@@ -39,9 +40,9 @@ display (x,y) f mt =
       y' = toFloat y
       grid = group (makeGrid (x',y'))
       gridCheck = \address -> Graphics.Input.checkbox (Signal.message address)
-      timerButt = case mt of
-                    Nothing -> always []
-                    Just _ -> \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) "Zeit auf Null" ]
+      timerButt = if Maybe.Extra.isNothing mt
+                  then always []
+                  else \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) "Zeit auf Null" ]
       fun g address1 address2 p t =
          Graphics.Element.flow Graphics.Element.up
          [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck address1 g :: timerButt address2
