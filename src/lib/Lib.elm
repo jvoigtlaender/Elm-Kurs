@@ -3,6 +3,7 @@ module Lib where
 import Text
 import Time
 import AnimationFrame
+import Signal.Extra
 import Mouse
 import Graphics.Collage
 import Graphics.Element
@@ -63,12 +64,16 @@ toScreen (x',y') fun mt =
            Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
            Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
            Just AnimationFrame -> AnimationFrame.frame
-    timer =
-      Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
-      (Time.timestamp tr)
-      (Time.timestamp buttonMbx.signal)
   in
-   Signal.map3 (\g (px,py) -> fun g gridMbx.address buttonMbx.address (toFloat px - xh, yh - toFloat py)) gridMbx.signal Mouse.position timer
+   Signal.map (\(t, { gridOn, mousePos, lastReset }) -> fun gridOn gridMbx.address buttonMbx.address mousePos ((t - lastReset) / 1000)) <|
+   Signal.Extra.foldp' (\(t, f) (_, state) -> (t, f state)) (\(t, _) -> (t, { gridOn = False, mousePos = (0,0), lastReset = t })) <|
+   Time.timestamp <|
+   Signal.mergeMany
+   [ Signal.map (\_ state -> state) tr
+   , Signal.map (\g state -> { state | gridOn <- g }) gridMbx.signal
+   , Signal.map (\(x,y) state -> { state | mousePos <- (toFloat x - xh, yh - toFloat y) }) Mouse.position
+   , Signal.map (\(t,_) state -> { state | lastReset <- t }) (Time.timestamp buttonMbx.signal)
+   ]
 
 type alias Form = Graphics.Collage.Form
 
