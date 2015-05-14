@@ -29,13 +29,8 @@ makeGrid (x,y) =
 type Timing = Every Float | FPS Float | AnimationFrame
 
 display' : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
-display' (x,y) f mt =
-  let tr = case mt of
-             Nothing -> Signal.constant 0
-             Just ti -> makeTimer ti
-      fun _ _ _ p t = Graphics.Collage.collage x y [f p t]
-  in
-   toScreen (toFloat x, toFloat y) fun tr
+display' (x,y) f =
+  toScreen (toFloat x, toFloat y) (\_ _ _ p t -> Graphics.Collage.collage x y [f p t])
 
 display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display (x,y) f mt =
@@ -43,10 +38,9 @@ display (x,y) f mt =
       y' = toFloat y
       grid = group (makeGrid (x',y'))
       gridCheck = \address -> Graphics.Input.checkbox (Signal.message address)
-      (tr, timerButt) = case mt of
-                          Nothing -> ( Signal.constant 0, always [])
-                          Just ti -> ( makeTimer ti
-                                     , \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) "Zeit auf Null" ] )
+      timerButt = case mt of
+                    Nothing -> always []
+                    Just _ -> \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) "Zeit auf Null" ]
       fun g address1 address2 p t =
          Graphics.Element.flow Graphics.Element.up
          [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck address1 g :: timerButt address2
@@ -55,27 +49,26 @@ display (x,y) f mt =
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [f p t]) ]
   in
-   toScreen (x',y') fun tr
+   toScreen (x',y') fun mt
 
-makeTimer ti =
-  case ti of
-    Every f -> Time.every (if f < 0.017 then 17 else 1000 * f)
-    FPS f -> Time.fps (if f > 60 then 60 else f)
-    AnimationFrame -> AnimationFrame.frame
-
-toScreen : (Float,Float) -> (Bool -> Signal.Address Bool -> Signal.Address () -> (Float,Float) -> Float -> Graphics.Element.Element) -> Signal a -> Signal Graphics.Element.Element
-toScreen (x',y') fun tr =
+toScreen : (Float,Float) -> (Bool -> Signal.Address Bool -> Signal.Address () -> (Float,Float) -> Float -> Graphics.Element.Element) -> Maybe Timing -> Signal Graphics.Element.Element
+toScreen (x',y') fun mt =
   let
     xh = x'/2
     yh = y'/2
     buttonMbx = Signal.mailbox ()
     gridMbx = Signal.mailbox False
+    tr = case mt of
+           Nothing             -> Signal.constant 0
+           Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
+           Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
+           Just AnimationFrame -> AnimationFrame.frame
     timer =
       Signal.map2 (\(a,_) (b,_) -> if a > b then (a - b) / 1000 else 0)
       (Time.timestamp tr)
       (Time.timestamp buttonMbx.signal)
   in
-   Signal.map3 (\f (px,py) -> f gridMbx.address buttonMbx.address (toFloat px - xh, yh - toFloat py)) (Signal.map fun gridMbx.signal) Mouse.position timer
+   Signal.map3 (\g (px,py) -> fun g gridMbx.address buttonMbx.address (toFloat px - xh, yh - toFloat py)) gridMbx.signal Mouse.position timer
 
 type alias Form = Graphics.Collage.Form
 
