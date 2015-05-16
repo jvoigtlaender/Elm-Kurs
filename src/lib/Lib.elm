@@ -79,11 +79,6 @@ toScreen (x,y) f extra_sigs ini upd mt =
   let
     xh = x/2
     yh = y/2
-    tr = case mt of
-           Nothing             -> Signal.constant 0
-           Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
-           Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
-           Just AnimationFrame -> AnimationFrame.frame
   in
    Signal.map (\(t, { gridOn, mousePos, s }) -> f gridOn mousePos t s) <|
    Signal.Extra.foldp'
@@ -93,7 +88,12 @@ toScreen (x,y) f extra_sigs ini upd mt =
    Time.timestamp <|
    Signal.mergeMany <|
    List.map (Signal.map (\event _ t' state -> (t', { state | s <- upd event state.mousePos t' state.s })))
-     [ Signal.map (always NoEvent) tr
+     [ Signal.map (always NoEvent) <|
+         case mt of
+           Nothing             -> Signal.constant 0
+           Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
+           Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
+           Just AnimationFrame -> AnimationFrame.frame 
      , Signal.map (always Click) Mouse.clicks
      ]
    ++
