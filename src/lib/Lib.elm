@@ -4,7 +4,6 @@ import Text
 import Time
 import AnimationFrame
 import Signal.Extra
-import Maybe.Extra
 import Mouse
 import Graphics.Collage
 import Graphics.Element
@@ -32,48 +31,73 @@ type Timing = Every Float | FPS Float | AnimationFrame
 
 display' : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display' (x,y) f =
-  toScreen (toFloat x, toFloat y) (\_ _ _ p t -> Graphics.Collage.collage x y [f p t])
+  displayWithState' (x,y) (\p t _ -> f p t) () (\_ _ _ -> identity)
+
+displayWithState' : (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+displayWithState' (x,y) f =
+  toScreen (toFloat x, toFloat y) (\_ _ _ p t s -> Graphics.Collage.collage x y [f p t s])
 
 display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display (x,y) f mt =
+  elaborateDisplay (Maybe.map (always "Zeit auf Null") mt) (x,y) (\p t _ -> f p t) () (\_ _ _ -> identity) mt
+
+displayWithState : (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+displayWithState =
+  elaborateDisplay (Just "auf Anfang")
+
+elaborateDisplay mr (x,y) f ini upd =
   let x' = toFloat x
       y' = toFloat y
       grid = group (makeGrid (x',y'))
       gridCheck = \address -> Graphics.Input.checkbox (Signal.message address)
-      timerButt = if Maybe.Extra.isNothing mt
-                  then always []
-                  else \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) "Zeit auf Null" ]
-      fun g address1 address2 p t =
+      restartButt = case mr of
+                      Nothing -> always []
+                      Just msg -> \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) msg ]
+      fun g address1 address2 p t s =
          Graphics.Element.flow Graphics.Element.up
-         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck address1 g :: timerButt address2
+         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck address1 g :: restartButt address2
          , Graphics.Element.color (Color.greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
-           ((if g then [ grid ] else []) ++ [f p t]) ]
+           ((if g then [ grid ] else []) ++ [f p t s]) ]
   in
-   toScreen (x',y') fun mt
+   toScreen (x',y') fun ini upd
 
-toScreen : (Float,Float) -> (Bool -> Signal.Address Bool -> Signal.Address () -> (Float,Float) -> Float -> Graphics.Element.Element) -> Maybe Timing -> Signal Graphics.Element.Element
-toScreen (x',y') fun mt =
+type Event = NoEvent
+
+toScreen : (Float,Float) -> (Bool -> Signal.Address Bool -> Signal.Address () -> (Float,Float) -> Float -> a -> Graphics.Element.Element) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+toScreen (x',y') fun ini upd mt =
   let
     xh = x'/2
     yh = y'/2
     buttonMbx = Signal.mailbox ()
-    gridMbx = Signal.mailbox False
+    gridMbx = Signal.mailbox False  -- value here actually irrelevant
     tr = case mt of
            Nothing             -> Signal.constant 0
            Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
            Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
            Just AnimationFrame -> AnimationFrame.frame
   in
-   Signal.map (\(t, { gridOn, mousePos, lastReset }) -> fun gridOn gridMbx.address buttonMbx.address mousePos ((t - lastReset) / 1000)) <|
-   Signal.Extra.foldp' (\(t, f) (_, state) -> (t, f state)) (\(t, _) -> (t, { gridOn = False, mousePos = (0,0), lastReset = t })) <|
+   Signal.map (\(t, { gridOn, mousePos, lastReset, s }) -> fun gridOn gridMbx.address buttonMbx.address mousePos t s) <|
+   Signal.Extra.foldp'
+     (\(t, action) (_, state) -> action t ((t - state.lastReset) / 1000) state)
+     (\(t, _) -> (0, { gridOn = False, mousePos = (0,0), lastReset = t, s = ini }))
+   <|
    Time.timestamp <|
    Signal.mergeMany
-   [ Signal.map (\_ state -> state) tr
-   , Signal.map (\g state -> { state | gridOn <- g }) gridMbx.signal
-   , Signal.map (\(x,y) state -> { state | mousePos <- (toFloat x - xh, yh - toFloat y) }) Mouse.position
-   , Signal.map (\(t,_) state -> { state | lastReset <- t }) (Time.timestamp buttonMbx.signal)
+   [ Signal.map
+       (\_ _ t' state -> (t', { state | s <- upd NoEvent state.mousePos t' state.s }))
+       tr
+   , Signal.map
+       (\g _ t' state -> (t', { state | gridOn <- g, s <- upd NoEvent state.mousePos t' state.s }))
+       gridMbx.signal
+   , Signal.map
+       (\(x,y) _ t' state -> let pos = (toFloat x - xh, yh - toFloat y)
+                           in (t', { state | mousePos <- pos, s <- upd NoEvent pos t' state.s }))
+       Mouse.position
+   , Signal.map
+       (\_ t _ state -> (0, { state | lastReset <- t, s <- ini }))
+       buttonMbx.signal
    ]
 
 type alias Form = Graphics.Collage.Form
