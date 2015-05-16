@@ -35,7 +35,7 @@ display' (x,y) f =
 
 displayWithState' : (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
 displayWithState' (x,y) f =
-  toScreen (toFloat x, toFloat y) (\_ _ _ p t s -> Graphics.Collage.collage x y [f p t s])
+  toScreen (toFloat x, toFloat y) (\_ p t s -> Graphics.Collage.collage x y [f p t s]) []
 
 display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display (x,y) f mt =
@@ -49,42 +49,49 @@ elaborateDisplay mr (x,y) f ini upd =
   let x' = toFloat x
       y' = toFloat y
       grid = group (makeGrid (x',y'))
-      gridCheck = \address -> Graphics.Input.checkbox (Signal.message address)
+      gridMbx = Signal.mailbox False  -- value here actually irrelevant
+      gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address)
+      restartMbx = Signal.mailbox ()
       restartButt = case mr of
-                      Nothing -> always []
-                      Just msg -> \address -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message address ()) msg ]
-      fun g address1 address2 p t s =
+                      Nothing -> []
+                      Just msg -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message restartMbx.address ()) msg ]
+      f' g p t s =
          Graphics.Element.flow Graphics.Element.up
-         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck address1 g :: restartButt address2
+         [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck g :: restartButt
          , Graphics.Element.color (Color.greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [f p t s]) ]
   in
-   toScreen (x',y') fun ini upd
+   toScreen (x',y') f'
+   [ Signal.map
+       (\g _ t' state -> (t', { state | gridOn <- g, s <- upd NoEvent state.mousePos t' state.s }))
+       gridMbx.signal
+   , Signal.map
+       (\_ t _ state -> (0, { state | lastReset <- t, s <- ini }))
+       restartMbx.signal
+   ]
+   ini upd
 
 type Event = Click | NoEvent
 
-toScreen : (Float,Float) -> (Bool -> Signal.Address Bool -> Signal.Address () -> (Float,Float) -> Float -> a -> Graphics.Element.Element) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
-toScreen (x',y') fun ini upd mt =
+toScreen (x,y) f extra_sigs ini upd mt =
   let
-    xh = x'/2
-    yh = y'/2
-    buttonMbx = Signal.mailbox ()
-    gridMbx = Signal.mailbox False  -- value here actually irrelevant
+    xh = x/2
+    yh = y/2
     tr = case mt of
            Nothing             -> Signal.constant 0
            Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
            Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
            Just AnimationFrame -> AnimationFrame.frame
   in
-   Signal.map (\(t, { gridOn, mousePos, lastReset, s }) -> fun gridOn gridMbx.address buttonMbx.address mousePos t s) <|
+   Signal.map (\(t, { gridOn, mousePos, s }) -> f gridOn mousePos t s) <|
    Signal.Extra.foldp'
      (\(t, action) (_, state) -> action t ((t - state.lastReset) / 1000) state)
      (\(t, _) -> (0, { gridOn = False, mousePos = (0,0), lastReset = t, s = ini }))
    <|
    Time.timestamp <|
-   Signal.mergeMany
+   Signal.mergeMany <|
    [ Signal.map
        (\_ _ t' state -> (t', { state | s <- upd NoEvent state.mousePos t' state.s }))
        tr
@@ -92,16 +99,12 @@ toScreen (x',y') fun ini upd mt =
        (\_ _ t' state -> (t', { state | s <- upd Click state.mousePos t' state.s }))
        Mouse.clicks
    , Signal.map
-       (\g _ t' state -> (t', { state | gridOn <- g, s <- upd NoEvent state.mousePos t' state.s }))
-       gridMbx.signal
-   , Signal.map
        (\(x,y) _ t' state -> let pos = (toFloat x - xh, yh - toFloat y)
-                           in (t', { state | mousePos <- pos, s <- upd NoEvent pos t' state.s }))
+                             in (t', { state | mousePos <- pos, s <- upd NoEvent pos t' state.s }))
        Mouse.position
-   , Signal.map
-       (\_ t _ state -> (0, { state | lastReset <- t, s <- ini }))
-       buttonMbx.signal
    ]
+   ++
+   extra_sigs
 
 type alias Form = Graphics.Collage.Form
 
