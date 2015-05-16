@@ -6,11 +6,13 @@ module Lib ( Timing(..), Event(..), Form, LineStyle,
              solid, dashed, dotted
            ) where
 
+import Set
 import Text
 import Time
 import AnimationFrame
 import Signal.Extra
 import Mouse
+import Keyboard
 import Graphics.Collage
 import Graphics.Element
 import Graphics.Input
@@ -82,7 +84,7 @@ elaborateDisplay mr (x,y) f ini upd =
    ]
    ini upd
 
-type Event = Click | NoEvent
+type Event = Space | Left | Up | Right | Down | Click | NoEvent
 
 -- not exported
 toScreen (x,y) f extra_sigs ini upd mt =
@@ -103,7 +105,16 @@ toScreen (x,y) f extra_sigs ini upd mt =
            Nothing             -> Signal.constant 0
            Just (Every f)      -> Time.every (if f < 0.017 then 17 else 1000 * f)
            Just (FPS f)        -> Time.fps (if f > 60 then 60 else f)
-           Just AnimationFrame -> AnimationFrame.frame 
+           Just AnimationFrame -> AnimationFrame.frame
+     , Signal.map
+         (\ks -> case Set.toList ks of
+                   [32] -> Space
+                   [37] -> Left
+                   [38] -> Up
+                   [39] -> Right
+                   [40] -> Down
+                   _ -> NoEvent)
+         Keyboard.keysDown
      , Signal.map (always Click) Mouse.clicks
      ]
    ++
