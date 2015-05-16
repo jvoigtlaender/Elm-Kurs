@@ -63,7 +63,7 @@ elaborateDisplay mr (x,y) f ini upd =
   in
    toScreen (x',y') fun ini upd
 
-type Event = NoEvent
+type Event = Click | NoEvent
 
 toScreen : (Float,Float) -> (Bool -> Signal.Address Bool -> Signal.Address () -> (Float,Float) -> Float -> a -> Graphics.Element.Element) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
 toScreen (x',y') fun ini upd mt =
@@ -88,6 +88,9 @@ toScreen (x',y') fun ini upd mt =
    [ Signal.map
        (\_ _ t' state -> (t', { state | s <- upd NoEvent state.mousePos t' state.s }))
        tr
+   , Signal.map
+       (\_ _ t' state -> (t', { state | s <- upd Click state.mousePos t' state.s }))
+       Mouse.clicks
    , Signal.map
        (\g _ t' state -> (t', { state | gridOn <- g, s <- upd NoEvent state.mousePos t' state.s }))
        gridMbx.signal
