@@ -1,4 +1,10 @@
-module Lib where
+module Lib ( Timing(..), Event(..), Form, LineStyle,
+             display, displayWithState, display', displayWithState',
+             circle, circle', rectangle, rectangle', square, square', path, path', oval, oval',
+             ngon, ngon', polygon, polygon', text, image, icon, icon', empty,
+             move, group, scale, rotate, alpha,
+             solid, dashed, dotted
+           ) where
 
 import Text
 import Time
@@ -11,8 +17,10 @@ import Graphics.Input
 import Html
 import Color
 
+-- not exported
 gridsize = 20
 
+-- not exported
 makeGrid : (Float,Float) -> List Form
 makeGrid (x,y) =
   let
@@ -45,6 +53,7 @@ displayWithState : (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (E
 displayWithState =
   elaborateDisplay (Just "auf Anfang")
 
+-- not exported
 elaborateDisplay mr (x,y) f ini upd =
   let x' = toFloat x
       y' = toFloat y
@@ -75,6 +84,7 @@ elaborateDisplay mr (x,y) f ini upd =
 
 type Event = Click | NoEvent
 
+-- not exported
 toScreen (x,y) f extra_sigs ini upd mt =
   let
     xh = x/2
