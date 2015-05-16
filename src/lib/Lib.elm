@@ -92,18 +92,16 @@ toScreen (x,y) f extra_sigs ini upd mt =
    <|
    Time.timestamp <|
    Signal.mergeMany <|
-   [ Signal.map
-       (\_ _ t' state -> (t', { state | s <- upd NoEvent state.mousePos t' state.s }))
-       tr
-   , Signal.map
-       (\_ _ t' state -> (t', { state | s <- upd Click state.mousePos t' state.s }))
-       Mouse.clicks
-   , Signal.map
+   List.map (Signal.map (\event _ t' state -> (t', { state | s <- upd event state.mousePos t' state.s })))
+     [ Signal.map (always NoEvent) tr
+     , Signal.map (always Click) Mouse.clicks
+     ]
+   ++
+   Signal.map
        (\(x,y) _ t' state -> let pos = (toFloat x - xh, yh - toFloat y)
                              in (t', { state | mousePos <- pos, s <- upd NoEvent pos t' state.s }))
        Mouse.position
-   ]
-   ++
+   ::
    extra_sigs
 
 type alias Form = Graphics.Collage.Form
