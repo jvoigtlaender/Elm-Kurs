@@ -3089,6 +3089,169 @@ Elm.Json.Encode.make = function (_elm) {
                              ,array: array
                              ,list: list};
    return _elm.Json.Encode.values;
+};Elm.Keyboard = Elm.Keyboard || {};
+Elm.Keyboard.make = function (_elm) {
+   "use strict";
+   _elm.Keyboard = _elm.Keyboard || {};
+   if (_elm.Keyboard.values)
+   return _elm.Keyboard.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Keyboard",
+   $Basics = Elm.Basics.make(_elm),
+   $Native$Keyboard = Elm.Native.Keyboard.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var presses = A2($Signal.map,
+   function (_) {
+      return _.keyCode;
+   },
+   $Native$Keyboard.presses);
+   var toXY = F2(function (_v0,
+   keyCodes) {
+      return function () {
+         return function () {
+            var is = function (keyCode) {
+               return A2($Set.member,
+               keyCode,
+               keyCodes) ? 1 : 0;
+            };
+            return {_: {}
+                   ,x: is(_v0.right) - is(_v0.left)
+                   ,y: is(_v0.up) - is(_v0.down)};
+         }();
+      }();
+   });
+   var Directions = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,down: b
+             ,left: c
+             ,right: d
+             ,up: a};
+   });
+   var dropMap = F2(function (f,
+   signal) {
+      return $Signal.dropRepeats(A2($Signal.map,
+      f,
+      signal));
+   });
+   var EventInfo = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,alt: a
+             ,keyCode: c
+             ,meta: b};
+   });
+   var Blur = {ctor: "Blur"};
+   var Down = function (a) {
+      return {ctor: "Down",_0: a};
+   };
+   var Up = function (a) {
+      return {ctor: "Up",_0: a};
+   };
+   var rawEvents = $Signal.mergeMany(_L.fromArray([A2($Signal.map,
+                                                  Up,
+                                                  $Native$Keyboard.ups)
+                                                  ,A2($Signal.map,
+                                                  Down,
+                                                  $Native$Keyboard.downs)
+                                                  ,A2($Signal.map,
+                                                  $Basics.always(Blur),
+                                                  $Native$Keyboard.blurs)]));
+   var empty = {_: {}
+               ,alt: false
+               ,keyCodes: $Set.empty
+               ,meta: false};
+   var update = F2(function (event,
+   model) {
+      return function () {
+         switch (event.ctor)
+         {case "Blur": return empty;
+            case "Down": return {_: {}
+                                ,alt: event._0.alt
+                                ,keyCodes: A2($Set.insert,
+                                event._0.keyCode,
+                                model.keyCodes)
+                                ,meta: event._0.meta};
+            case "Up": return {_: {}
+                              ,alt: event._0.alt
+                              ,keyCodes: A2($Set.remove,
+                              event._0.keyCode,
+                              model.keyCodes)
+                              ,meta: event._0.meta};}
+         _U.badCase($moduleName,
+         "between lines 68 and 82");
+      }();
+   });
+   var model = A3($Signal.foldp,
+   update,
+   empty,
+   rawEvents);
+   var alt = A2(dropMap,
+   function (_) {
+      return _.alt;
+   },
+   model);
+   var meta = A2(dropMap,
+   function (_) {
+      return _.meta;
+   },
+   model);
+   var keysDown = A2(dropMap,
+   function (_) {
+      return _.keyCodes;
+   },
+   model);
+   var arrows = A2(dropMap,
+   toXY({_: {}
+        ,down: 40
+        ,left: 37
+        ,right: 39
+        ,up: 38}),
+   keysDown);
+   var wasd = A2(dropMap,
+   toXY({_: {}
+        ,down: 83
+        ,left: 65
+        ,right: 68
+        ,up: 87}),
+   keysDown);
+   var isDown = function (keyCode) {
+      return A2(dropMap,
+      $Set.member(keyCode),
+      keysDown);
+   };
+   var ctrl = isDown(17);
+   var shift = isDown(16);
+   var space = isDown(32);
+   var enter = isDown(13);
+   var Model = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,alt: a
+             ,keyCodes: c
+             ,meta: b};
+   });
+   _elm.Keyboard.values = {_op: _op
+                          ,arrows: arrows
+                          ,wasd: wasd
+                          ,enter: enter
+                          ,space: space
+                          ,ctrl: ctrl
+                          ,shift: shift
+                          ,alt: alt
+                          ,meta: meta
+                          ,isDown: isDown
+                          ,keysDown: keysDown
+                          ,presses: presses};
+   return _elm.Keyboard.values;
 };Elm.Lib = Elm.Lib || {};
 Elm.Lib.make = function (_elm) {
    "use strict";
@@ -3107,10 +3270,13 @@ Elm.Lib.make = function (_elm) {
    $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $Graphics$Input = Elm.Graphics.Input.make(_elm),
    $Html = Elm.Html.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Mouse = Elm.Mouse.make(_elm),
+   $Set = Elm.Set.make(_elm),
    $Signal = Elm.Signal.make(_elm),
+   $Signal$Extra = Elm.Signal.Extra.make(_elm),
    $Text = Elm.Text.make(_elm),
    $Time = Elm.Time.make(_elm);
    var icon$ = F3(function (c,
@@ -3135,7 +3301,7 @@ Elm.Lib.make = function (_elm) {
               $Basics.round(_v0._1),
               s));}
          _U.badCase($moduleName,
-         "between lines 197 and 198");
+         "between lines 229 and 230");
       }();
    });
    var dotted = $Graphics$Collage.dotted;
@@ -3176,7 +3342,7 @@ Elm.Lib.make = function (_elm) {
               _v4._0,
               _v4._1));}
          _U.badCase($moduleName,
-         "between lines 134 and 135");
+         "between lines 166 and 167");
       }();
    });
    var oval = oval$($Graphics$Collage.defaultLine);
@@ -3193,7 +3359,7 @@ Elm.Lib.make = function (_elm) {
               _v8._0,
               _v8._1));}
          _U.badCase($moduleName,
-         "between lines 118 and 119");
+         "between lines 150 and 151");
       }();
    });
    var rectangle = rectangle$($Graphics$Collage.defaultLine);
@@ -3202,103 +3368,223 @@ Elm.Lib.make = function (_elm) {
       return $Graphics$Collage.outlined(s)($Graphics$Collage.circle(r));
    });
    var circle = circle$($Graphics$Collage.defaultLine);
-   var toScreen = F4(function (_v12,
-   funs,
-   tr,
-   tx) {
+   var NoEvent = {ctor: "NoEvent"};
+   var Click = {ctor: "Click"};
+   var Down = {ctor: "Down"};
+   var Right = {ctor: "Right"};
+   var Up = {ctor: "Up"};
+   var Left = {ctor: "Left"};
+   var Space = {ctor: "Space"};
+   var toScreen = F7(function (x1,
+   y2,
+   f,
+   extra_sigs,
+   ini,
+   upd,
+   mt) {
+      return $Signal.map(function (_v39) {
+         return function () {
+            switch (_v39.ctor)
+            {case "_Tuple2": return A4(f,
+                 _v39._1.gridOn,
+                 _v39._1.mousePos,
+                 _v39._0,
+                 _v39._1.s);}
+            _U.badCase($moduleName,
+            "on line 102, column 49 to 70");
+         }();
+      })(A2($Signal$Extra.foldp$,
+      F2(function (_v27,_v28) {
+         return function () {
+            switch (_v28.ctor)
+            {case "_Tuple2":
+               return function () {
+                    switch (_v27.ctor)
+                    {case "_Tuple2":
+                       return A3(_v27._1,
+                         _v27._0,
+                         (_v27._0 - _v28._1.lastReset) / 1000,
+                         _v28._1);}
+                    _U.badCase($moduleName,
+                    "on line 104, column 34 to 79");
+                 }();}
+            _U.badCase($moduleName,
+            "on line 104, column 34 to 79");
+         }();
+      }),
+      function (_v35) {
+         return function () {
+            switch (_v35.ctor)
+            {case "_Tuple2":
+               return {ctor: "_Tuple2"
+                      ,_0: 0
+                      ,_1: {_: {}
+                           ,gridOn: false
+                           ,lastReset: _v35._0
+                           ,mousePos: {ctor: "_Tuple2"
+                                      ,_0: 0
+                                      ,_1: 0}
+                           ,s: ini}};}
+            _U.badCase($moduleName,
+            "on line 105, column 19 to 82");
+         }();
+      })($Time.timestamp($Signal.mergeMany(A2($Basics._op["++"],
+      A2($List.map,
+      $Signal.map(F4(function (event,
+      _v12,
+      t$,
+      state) {
+         return function () {
+            return {ctor: "_Tuple2"
+                   ,_0: t$
+                   ,_1: _U.replace([["s"
+                                    ,A4(upd,
+                                    event,
+                                    state.mousePos,
+                                    t$,
+                                    state.s)]],
+                   state)};
+         }();
+      })),
+      _L.fromArray([$Signal.map($Basics.always(NoEvent))(function () {
+                      switch (mt.ctor)
+                      {case "Just":
+                         switch (mt._0.ctor)
+                           {case "AnimationFrame":
+                              return $AnimationFrame.frame;
+                              case "Every":
+                              return $Time.every(_U.cmp(mt._0._0,
+                                1.7e-2) < 0 ? 17 : 1000 * mt._0._0);
+                              case "FPS":
+                              return $Time.fps(_U.cmp(mt._0._0,
+                                60) > 0 ? 60 : mt._0._0);}
+                           break;
+                         case "Nothing":
+                         return $Signal.constant(0);}
+                      _U.badCase($moduleName,
+                      "between lines 111 and 116");
+                   }())
+                   ,A2($Signal.map,
+                   function (ks) {
+                      return function () {
+                         var _v18 = $Set.toList(ks);
+                         switch (_v18.ctor)
+                         {case "::": switch (_v18._0)
+                              {case 32: switch (_v18._1.ctor)
+                                   {case "[]": return Space;}
+                                   break;
+                                 case 37: switch (_v18._1.ctor)
+                                   {case "[]": return Left;}
+                                   break;
+                                 case 38: switch (_v18._1.ctor)
+                                   {case "[]": return Up;}
+                                   break;
+                                 case 39: switch (_v18._1.ctor)
+                                   {case "[]": return Right;}
+                                   break;
+                                 case 40: switch (_v18._1.ctor)
+                                   {case "[]": return Down;}
+                                   break;}
+                              break;}
+                         return NoEvent;
+                      }();
+                   },
+                   $Keyboard.keysDown)
+                   ,A2($Signal.map,
+                   $Basics.always(Click),
+                   $Mouse.clicks)])),
+      A2($List._op["::"],
+      A2($Signal.map,
+      F4(function (_v21,
+      _v22,
+      t$,
+      state) {
+         return function () {
+            return function () {
+               switch (_v21.ctor)
+               {case "_Tuple2":
+                  return function () {
+                       var pos = {ctor: "_Tuple2"
+                                 ,_0: $Basics.toFloat(x1 + _v21._0)
+                                 ,_1: $Basics.toFloat(y2 - _v21._1)};
+                       return {ctor: "_Tuple2"
+                              ,_0: t$
+                              ,_1: _U.replace([["mousePos"
+                                               ,pos]
+                                              ,["s"
+                                               ,A4(upd,
+                                               NoEvent,
+                                               pos,
+                                               t$,
+                                               state.s)]],
+                              state)};
+                    }();}
+               _U.badCase($moduleName,
+               "between lines 129 and 130");
+            }();
+         }();
+      }),
+      $Mouse.position),
+      extra_sigs))))));
+   });
+   var displayWithState$ = F3(function (_v43,
+   _v44,
+   f) {
       return function () {
-         switch (_v12.ctor)
+         switch (_v44.ctor)
          {case "_Tuple2":
             return function () {
-                 var timer = A3($Signal.map2,
-                 F2(function (_v16,_v17) {
+                 switch (_v43.ctor)
+                 {case "_Tuple2":
                     return function () {
-                       switch (_v17.ctor)
-                       {case "_Tuple2":
-                          return function () {
-                               switch (_v16.ctor)
-                               {case "_Tuple2":
-                                  return _U.cmp(_v16._0,
-                                    _v17._0) > 0 ? (_v16._0 - _v17._0) / 1000 : 0;}
-                               _U.badCase($moduleName,
-                               "on line 81, column 36 to 71");
-                            }();}
-                       _U.badCase($moduleName,
-                       "on line 81, column 36 to 71");
-                    }();
-                 }),
-                 $Time.timestamp(tr),
-                 $Time.timestamp(tx));
-                 var yh = _v12._1 / 2;
-                 var xh = _v12._0 / 2;
-                 return A4($Signal.map3,
-                 F2(function (f,_v24) {
-                    return function () {
-                       switch (_v24.ctor)
-                       {case "_Tuple2":
-                          return f({ctor: "_Tuple2"
-                                   ,_0: $Basics.toFloat(_v24._0) - xh
-                                   ,_1: yh - $Basics.toFloat(_v24._1)});}
-                       _U.badCase($moduleName,
-                       "on line 85, column 31 to 66");
-                    }();
-                 }),
-                 funs,
-                 $Mouse.position,
-                 timer);
+                         var d = {ctor: "_Tuple2"
+                                 ,_0: $Basics.toFloat(0 - _v43._0 - _v44._0) / 2
+                                 ,_1: $Basics.toFloat(0 - _v43._1 - _v44._1) / 2};
+                         var y = _v44._1 - _v43._1;
+                         var x = _v44._0 - _v43._0;
+                         return A4(toScreen,
+                         _v43._0,
+                         _v44._1,
+                         F4(function (_v51,p,t,s) {
+                            return function () {
+                               return A3($Graphics$Collage.collage,
+                               x,
+                               y,
+                               _L.fromArray([A2(move,
+                               d,
+                               A3(f,p,t,s))]));
+                            }();
+                         }),
+                         _L.fromArray([]));
+                      }();}
+                 _U.badCase($moduleName,
+                 "between lines 49 and 54");
               }();}
          _U.badCase($moduleName,
-         "between lines 77 and 85");
+         "between lines 49 and 54");
       }();
    });
-   var makeTimer = function (ti) {
-      return function () {
-         switch (ti.ctor)
-         {case "AnimationFrame":
-            return $AnimationFrame.frame;
-            case "Every":
-            return $Time.every(_U.cmp(ti._0,
-              1.7e-2) < 0 ? 17 : 1000 * ti._0);
-            case "FPS":
-            return $Time.fps(_U.cmp(ti._0,
-              60) > 0 ? 60 : ti._0);}
-         _U.badCase($moduleName,
-         "between lines 70 and 73");
-      }();
-   };
-   var display$ = F3(function (_v31,
-   f,
-   mt) {
-      return function () {
-         switch (_v31.ctor)
-         {case "_Tuple2":
+   var display$ = F3(function (p1,
+   p2,
+   f) {
+      return A5(displayWithState$,
+      p1,
+      p2,
+      F3(function (p,t,_v53) {
+         return function () {
+            return A2(f,p,t);
+         }();
+      }),
+      {ctor: "_Tuple0"},
+      F3(function (_v55,_v56,_v57) {
+         return function () {
             return function () {
-                 var fun = F2(function (p,t) {
-                    return A3($Graphics$Collage.collage,
-                    _v31._0,
-                    _v31._1,
-                    _L.fromArray([A2(f,p,t)]));
-                 });
-                 var tr = function () {
-                    switch (mt.ctor)
-                    {case "Just":
-                       return makeTimer(mt._0);
-                       case "Nothing":
-                       return $Signal.constant(0);}
-                    _U.badCase($moduleName,
-                    "between lines 40 and 43");
-                 }();
-                 return A4(toScreen,
-                 {ctor: "_Tuple2"
-                 ,_0: $Basics.toFloat(_v31._0)
-                 ,_1: $Basics.toFloat(_v31._1)},
-                 $Signal.constant(fun),
-                 tr,
-                 $Signal.constant({ctor: "_Tuple0"}));
-              }();}
-         _U.badCase($moduleName,
-         "between lines 40 and 45");
-      }();
+               return function () {
+                  return $Basics.identity;
+               }();
+            }();
+         }();
+      }));
    });
    var AnimationFrame = {ctor: "AnimationFrame"};
    var FPS = function (a) {
@@ -3308,144 +3594,224 @@ Elm.Lib.make = function (_elm) {
       return {ctor: "Every",_0: a};
    };
    var gridsize = 20;
-   var makeGrid = function (_v37) {
+   var makeGrid = F4(function (x1,
+   y1,
+   x2,
+   y2) {
       return function () {
-         switch (_v37.ctor)
-         {case "_Tuple2":
+         var y_ = (y1 + y2) / 2;
+         var yh = y_ - y1;
+         var x_ = (x1 + x2) / 2;
+         var xh = x_ - x1;
+         return group(A2($Basics._op["++"],
+         A2($List.map,
+         function (i) {
             return function () {
-                 var yh = _v37._1 / 2;
-                 var j = $Basics.floor(yh / gridsize);
-                 var xh = _v37._0 / 2;
-                 var i = $Basics.floor(xh / gridsize);
-                 return A2($Basics._op["++"],
-                 A2($List.map,
-                 function (i) {
-                    return function () {
-                       var x = $Basics.toFloat(i) * gridsize;
-                       return A2(path$,
-                       dotted($Color.greyscale(0.15)),
-                       _L.fromArray([{ctor: "_Tuple2"
-                                     ,_0: x
-                                     ,_1: 0 - yh}
-                                    ,{ctor: "_Tuple2"
-                                     ,_0: x
-                                     ,_1: yh}]));
-                    }();
-                 },
-                 _L.range(0 - i,i)),
-                 A2($Basics._op["++"],
-                 A2($List.map,
-                 function (j) {
-                    return function () {
-                       var y = $Basics.toFloat(j) * gridsize;
-                       return A2(path$,
-                       dotted($Color.greyscale(0.15)),
-                       _L.fromArray([{ctor: "_Tuple2"
-                                     ,_0: 0 - xh
-                                     ,_1: y}
-                                    ,{ctor: "_Tuple2"
-                                     ,_0: xh
-                                     ,_1: y}]));
-                    }();
-                 },
-                 _L.range(0 - j,j)),
-                 _L.fromArray([A2($Graphics$Collage.filled,
-                 $Color.red,
-                 $Graphics$Collage.circle(2))])));
-              }();}
-         _U.badCase($moduleName,
-         "between lines 24 and 34");
-      }();
-   };
-   var display = F3(function (_v41,
-   f,
-   mt) {
-      return function () {
-         switch (_v41.ctor)
-         {case "_Tuple2":
+               var x = $Basics.toFloat(i) * gridsize - x_;
+               return A2(path$,
+               dotted($Color.greyscale(0.15)),
+               _L.fromArray([{ctor: "_Tuple2"
+                             ,_0: x
+                             ,_1: 0 - yh}
+                            ,{ctor: "_Tuple2"
+                             ,_0: x
+                             ,_1: yh}]));
+            }();
+         },
+         _L.range($Basics.ceiling(x1 / gridsize),
+         $Basics.floor(x2 / gridsize))),
+         A2($Basics._op["++"],
+         A2($List.map,
+         function (j) {
             return function () {
-                 var gridMbx = $Signal.mailbox(false);
-                 var gridCheck = A2($Graphics$Input.checkbox,
-                 $Signal.message(gridMbx.address),
-                 false);
-                 var buttonMbx = $Signal.mailbox({ctor: "_Tuple0"});
-                 var $ = function () {
-                    switch (mt.ctor)
-                    {case "Just":
-                       return {ctor: "_Tuple2"
-                              ,_0: makeTimer(mt._0)
-                              ,_1: _L.fromArray([A2($Graphics$Element.spacer,
-                                                10,
-                                                10)
-                                                ,A2($Graphics$Input.button,
-                                                A2($Signal.message,
-                                                buttonMbx.address,
-                                                {ctor: "_Tuple0"}),
-                                                "Zeit auf Null")])};
-                       case "Nothing":
-                       return {ctor: "_Tuple2"
-                              ,_0: $Signal.constant(0)
-                              ,_1: _L.fromArray([])};}
-                    _U.badCase($moduleName,
-                    "between lines 55 and 59");
-                 }(),
-                 tr = $._0,
-                 timerButt = $._1;
-                 var y$ = $Basics.toFloat(_v41._1);
-                 var x$ = $Basics.toFloat(_v41._0);
-                 var grid = group(makeGrid({ctor: "_Tuple2"
-                                           ,_0: x$
-                                           ,_1: y$}));
-                 var fun = F3(function (g,p,t) {
-                    return A2($Graphics$Element.flow,
-                    $Graphics$Element.up,
-                    _L.fromArray([$Graphics$Element.flow($Graphics$Element.left)(A2($List._op["::"],
-                                 $Graphics$Element.show(p),
-                                 A2($List._op["::"],
-                                 gridCheck,
-                                 timerButt)))
-                                 ,$Graphics$Element.color($Color.greyscale(5.0e-2))(A3($Graphics$Element.container,
-                                 _v41._0,
-                                 _v41._1,
-                                 $Graphics$Element.middle)(A3($Graphics$Collage.collage,
-                                 _v41._0,
-                                 _v41._1,
-                                 A2($Basics._op["++"],
-                                 g ? _L.fromArray([grid]) : _L.fromArray([]),
-                                 _L.fromArray([A2(f,
-                                 p,
-                                 t)])))))]));
-                 });
-                 return A4(toScreen,
-                 {ctor: "_Tuple2",_0: x$,_1: y$},
-                 A2($Signal.map,
-                 fun,
-                 gridMbx.signal),
-                 tr,
-                 buttonMbx.signal);
-              }();}
-         _U.badCase($moduleName,
-         "between lines 49 and 67");
+               var y = $Basics.toFloat(j) * gridsize - y_;
+               return A2(path$,
+               dotted($Color.greyscale(0.15)),
+               _L.fromArray([{ctor: "_Tuple2"
+                             ,_0: 0 - xh
+                             ,_1: y}
+                            ,{ctor: "_Tuple2"
+                             ,_0: xh
+                             ,_1: y}]));
+            }();
+         },
+         _L.range($Basics.ceiling(y1 / gridsize),
+         $Basics.floor(y2 / gridsize))),
+         _L.fromArray([A2(move,
+         {ctor: "_Tuple2"
+         ,_0: 0 - x_
+         ,_1: 0 - y_},
+         A2($Graphics$Collage.filled,
+         $Color.red,
+         $Graphics$Collage.circle(2)))]))));
       }();
    });
+   var elaborateDisplay = F6(function (mr,
+   _v61,
+   _v62,
+   f,
+   ini,
+   upd) {
+      return function () {
+         switch (_v62.ctor)
+         {case "_Tuple2":
+            return function () {
+                 switch (_v61.ctor)
+                 {case "_Tuple2":
+                    return function () {
+                         var y = _v62._1 - _v61._1;
+                         var x = _v62._0 - _v61._0;
+                         var restartMbx = $Signal.mailbox({ctor: "_Tuple0"});
+                         var restartButt = function () {
+                            switch (mr.ctor)
+                            {case "Just":
+                               return _L.fromArray([A2($Graphics$Element.spacer,
+                                                   10,
+                                                   10)
+                                                   ,A2($Graphics$Input.button,
+                                                   A2($Signal.message,
+                                                   restartMbx.address,
+                                                   {ctor: "_Tuple0"}),
+                                                   mr._0)]);
+                               case "Nothing":
+                               return _L.fromArray([]);}
+                            _U.badCase($moduleName,
+                            "between lines 74 and 77");
+                         }();
+                         var gridMbx = $Signal.mailbox(false);
+                         var gridCheck = $Graphics$Input.checkbox($Signal.message(gridMbx.address));
+                         var y2$ = $Basics.toFloat(_v62._1);
+                         var x2$ = $Basics.toFloat(_v62._0);
+                         var y1$ = $Basics.toFloat(_v61._1);
+                         var x1$ = $Basics.toFloat(_v61._0);
+                         var grid = A4(makeGrid,
+                         x1$,
+                         y1$,
+                         x2$,
+                         y2$);
+                         var d = {ctor: "_Tuple2"
+                                 ,_0: (0 - x1$ - x2$) / 2
+                                 ,_1: (0 - y1$ - y2$) / 2};
+                         var f$ = F4(function (g,p,t,s) {
+                            return A2($Graphics$Element.flow,
+                            $Graphics$Element.up,
+                            _L.fromArray([$Graphics$Element.flow($Graphics$Element.left)(A2($List._op["::"],
+                                         $Graphics$Element.show(p),
+                                         A2($List._op["::"],
+                                         gridCheck(g),
+                                         restartButt)))
+                                         ,$Graphics$Element.color($Color.greyscale(5.0e-2))(A3($Graphics$Element.container,
+                                         x,
+                                         y,
+                                         $Graphics$Element.middle)(A3($Graphics$Collage.collage,
+                                         x,
+                                         y,
+                                         A2($Basics._op["++"],
+                                         g ? _L.fromArray([grid]) : _L.fromArray([]),
+                                         _L.fromArray([A2(move,
+                                         d,
+                                         A3(f,p,t,s))])))))]));
+                         });
+                         return A6(toScreen,
+                         _v61._0,
+                         _v62._1,
+                         f$,
+                         _L.fromArray([A2($Signal.map,
+                                      F4(function (g,_v71,t$,state) {
+                                         return function () {
+                                            return {ctor: "_Tuple2"
+                                                   ,_0: t$
+                                                   ,_1: _U.replace([["gridOn",g]
+                                                                   ,["s"
+                                                                    ,A4(upd,
+                                                                    NoEvent,
+                                                                    state.mousePos,
+                                                                    t$,
+                                                                    state.s)]],
+                                                   state)};
+                                         }();
+                                      }),
+                                      gridMbx.signal)
+                                      ,A2($Signal.map,
+                                      F4(function (_v73,
+                                      t,
+                                      _v74,
+                                      state) {
+                                         return function () {
+                                            return function () {
+                                               return {ctor: "_Tuple2"
+                                                      ,_0: 0
+                                                      ,_1: _U.replace([["lastReset"
+                                                                       ,t]
+                                                                      ,["s"
+                                                                       ,ini]],
+                                                      state)};
+                                            }();
+                                         }();
+                                      }),
+                                      restartMbx.signal)]),
+                         ini,
+                         upd);
+                      }();}
+                 _U.badCase($moduleName,
+                 "between lines 66 and 96");
+              }();}
+         _U.badCase($moduleName,
+         "between lines 66 and 96");
+      }();
+   });
+   var display = F4(function (p1,
+   p2,
+   f,
+   mt) {
+      return A7(elaborateDisplay,
+      A2($Maybe.map,
+      $Basics.always("Zeit auf Null"),
+      mt),
+      p1,
+      p2,
+      F3(function (p,t,_v77) {
+         return function () {
+            return A2(f,p,t);
+         }();
+      }),
+      {ctor: "_Tuple0"},
+      F3(function (_v79,_v80,_v81) {
+         return function () {
+            return function () {
+               return function () {
+                  return $Basics.identity;
+               }();
+            }();
+         }();
+      }),
+      mt);
+   });
+   var displayWithState = elaborateDisplay($Maybe.Just("auf Anfang"));
    _elm.Lib.values = {_op: _op
                      ,display: display
+                     ,displayWithState: displayWithState
                      ,display$: display$
+                     ,displayWithState$: displayWithState$
                      ,circle: circle
                      ,circle$: circle$
                      ,rectangle: rectangle
                      ,rectangle$: rectangle$
+                     ,square: square
+                     ,square$: square$
                      ,path: path
                      ,path$: path$
                      ,oval: oval
                      ,oval$: oval$
-                     ,square: square
-                     ,square$: square$
                      ,ngon: ngon
                      ,ngon$: ngon$
                      ,polygon: polygon
                      ,polygon$: polygon$
                      ,text: text
+                     ,image: image
+                     ,icon: icon
+                     ,icon$: icon$
+                     ,empty: empty
                      ,move: move
                      ,group: group
                      ,scale: scale
@@ -3454,13 +3820,16 @@ Elm.Lib.make = function (_elm) {
                      ,solid: solid
                      ,dashed: dashed
                      ,dotted: dotted
-                     ,image: image
-                     ,empty: empty
-                     ,icon: icon
-                     ,icon$: icon$
                      ,Every: Every
                      ,FPS: FPS
-                     ,AnimationFrame: AnimationFrame};
+                     ,AnimationFrame: AnimationFrame
+                     ,Space: Space
+                     ,Left: Left
+                     ,Up: Up
+                     ,Right: Right
+                     ,Down: Down
+                     ,Click: Click
+                     ,NoEvent: NoEvent};
    return _elm.Lib.values;
 };Elm.List = Elm.List || {};
 Elm.List.make = function (_elm) {
@@ -3837,22 +4206,23 @@ Elm.Main.make = function (_elm) {
             var h = $Basics.abs($Basics.cos(2 * t)) / (1 + t / 3);
             return $Lib.group(_L.fromArray([$Lib.path(_L.fromArray([{ctor: "_Tuple2"
                                                                     ,_0: -200
-                                                                    ,_1: -70}
+                                                                    ,_1: -20}
                                                                    ,{ctor: "_Tuple2"
                                                                     ,_0: 200
-                                                                    ,_1: -70}]))
-                                           ,A2($Lib.move,
-                                           {ctor: "_Tuple2"
-                                           ,_0: 0
-                                           ,_1: 150 * h - 50},
-                                           $Lib.circle(20))]));
+                                                                    ,_1: -20}]))
+                                           ,$Lib.move({ctor: "_Tuple2"
+                                                      ,_0: 0
+                                                      ,_1: 150 * h})($Lib.circle(20))]));
          }();
       }();
    });
-   var main = A3($Lib.display,
+   var main = A4($Lib.display,
    {ctor: "_Tuple2"
-   ,_0: 400
-   ,_1: 300},
+   ,_0: -200
+   ,_1: -100},
+   {ctor: "_Tuple2"
+   ,_0: 200
+   ,_1: 200},
    scene,
    $Maybe.Just($Lib.AnimationFrame));
    _elm.Main.values = {_op: _op
@@ -7581,6 +7951,55 @@ Elm.Native.Json.make = function(localRuntime) {
 		encodeList: List.toArray,
 		encodeObject: encodeObject
 
+	};
+
+};
+Elm.Native.Keyboard = {};
+Elm.Native.Keyboard.make = function(localRuntime) {
+
+	localRuntime.Native = localRuntime.Native || {};
+	localRuntime.Native.Keyboard = localRuntime.Native.Keyboard || {};
+	if (localRuntime.Native.Keyboard.values)
+	{
+		return localRuntime.Native.Keyboard.values;
+	}
+
+	var NS = Elm.Native.Signal.make(localRuntime);
+
+
+	function keyEvent(event)
+	{
+		return {
+			_: {},
+			alt: event.altKey,
+			meta: event.metaKey,
+			keyCode: event.keyCode
+		};
+	}
+
+
+	function keyStream(node, eventName, handler)
+	{
+		var stream = NS.input(eventName, '\0');
+
+		localRuntime.addListener([stream.id], node, eventName, function(e) {
+			localRuntime.notify(stream.id, handler(e));
+		});
+
+		return stream;
+	}
+
+	var downs = keyStream(document, 'keydown', keyEvent);
+	var ups = keyStream(document, 'keyup', keyEvent);
+	var presses = keyStream(document, 'keypress', keyEvent);
+	var blurs = keyStream(window, 'blur', function() { return null; });
+
+
+	return localRuntime.Native.Keyboard.values = {
+		downs: downs,
+		ups: ups,
+		blurs: blurs,
+		presses: presses
 	};
 
 };
@@ -12949,6 +13368,108 @@ Elm.Result.make = function (_elm) {
                         ,Ok: Ok
                         ,Err: Err};
    return _elm.Result.values;
+};Elm.Set = Elm.Set || {};
+Elm.Set.make = function (_elm) {
+   "use strict";
+   _elm.Set = _elm.Set || {};
+   if (_elm.Set.values)
+   return _elm.Set.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Set",
+   $Dict = Elm.Dict.make(_elm),
+   $List = Elm.List.make(_elm);
+   var partition = F2(function (p,
+   set) {
+      return A2($Dict.partition,
+      F2(function (k,_v0) {
+         return function () {
+            return p(k);
+         }();
+      }),
+      set);
+   });
+   var filter = F2(function (p,
+   set) {
+      return A2($Dict.filter,
+      F2(function (k,_v2) {
+         return function () {
+            return p(k);
+         }();
+      }),
+      set);
+   });
+   var foldr = F3(function (f,
+   b,
+   s) {
+      return A3($Dict.foldr,
+      F3(function (k,_v4,b) {
+         return function () {
+            return A2(f,k,b);
+         }();
+      }),
+      b,
+      s);
+   });
+   var foldl = F3(function (f,
+   b,
+   s) {
+      return A3($Dict.foldl,
+      F3(function (k,_v6,b) {
+         return function () {
+            return A2(f,k,b);
+         }();
+      }),
+      b,
+      s);
+   });
+   var toList = $Dict.keys;
+   var diff = $Dict.diff;
+   var intersect = $Dict.intersect;
+   var union = $Dict.union;
+   var member = $Dict.member;
+   var remove = $Dict.remove;
+   var insert = function (k) {
+      return A2($Dict.insert,
+      k,
+      {ctor: "_Tuple0"});
+   };
+   var singleton = function (k) {
+      return A2($Dict.singleton,
+      k,
+      {ctor: "_Tuple0"});
+   };
+   var empty = $Dict.empty;
+   var fromList = function (xs) {
+      return A3($List.foldl,
+      insert,
+      empty,
+      xs);
+   };
+   var map = F2(function (f,s) {
+      return fromList(A2($List.map,
+      f,
+      toList(s)));
+   });
+   _elm.Set.values = {_op: _op
+                     ,empty: empty
+                     ,singleton: singleton
+                     ,insert: insert
+                     ,remove: remove
+                     ,member: member
+                     ,foldl: foldl
+                     ,foldr: foldr
+                     ,map: map
+                     ,filter: filter
+                     ,partition: partition
+                     ,union: union
+                     ,intersect: intersect
+                     ,diff: diff
+                     ,toList: toList
+                     ,fromList: fromList};
+   return _elm.Set.values;
 };Elm.Signal = Elm.Signal || {};
 Elm.Signal.make = function (_elm) {
    "use strict";
@@ -13092,6 +13613,498 @@ Elm.Signal.make = function (_elm) {
                         ,forwardTo: forwardTo
                         ,Mailbox: Mailbox};
    return _elm.Signal.values;
+};Elm.Signal = Elm.Signal || {};
+Elm.Signal.Extra = Elm.Signal.Extra || {};
+Elm.Signal.Extra.make = function (_elm) {
+   "use strict";
+   _elm.Signal = _elm.Signal || {};
+   _elm.Signal.Extra = _elm.Signal.Extra || {};
+   if (_elm.Signal.Extra.values)
+   return _elm.Signal.Extra.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Signal.Extra",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var combine = A2($List.foldr,
+   $Signal.map2(F2(function (x,y) {
+      return A2($List._op["::"],
+      x,
+      y);
+   })),
+   $Signal.constant(_L.fromArray([])));
+   var mapMany = F2(function (f,
+   l) {
+      return A2($Signal._op["<~"],
+      f,
+      combine(l));
+   });
+   var applyMany = F2(function (fs,
+   l) {
+      return A2($Signal._op["~"],
+      fs,
+      combine(l));
+   });
+   var filter = function (initial) {
+      return A2($Signal.filterMap,
+      $Basics.identity,
+      initial);
+   };
+   var keepIf = $Signal.filter;
+   var runBuffer$ = F3(function (l,
+   n,
+   input) {
+      return function () {
+         var f = F2(function (inp,
+         prev) {
+            return function () {
+               var l = $List.length(prev);
+               return _U.cmp(l,
+               n) < 0 ? A2($Basics._op["++"],
+               prev,
+               _L.fromArray([inp])) : A2($Basics._op["++"],
+               A2($List.drop,l - n + 1,prev),
+               _L.fromArray([inp]));
+            }();
+         });
+         return A3($Signal.foldp,
+         f,
+         l,
+         input);
+      }();
+   });
+   var runBuffer = runBuffer$(_L.fromArray([]));
+   var foldps = F3(function (f,
+   bs,
+   aS) {
+      return A2($Signal._op["<~"],
+      $Basics.fst,
+      A3($Signal.foldp,
+      F2(function (a,_v0) {
+         return function () {
+            switch (_v0.ctor)
+            {case "_Tuple2": return A2(f,
+                 a,
+                 _v0._1);}
+            _U.badCase($moduleName,
+            "on line 120, column 29 to 34");
+         }();
+      }),
+      bs,
+      aS));
+   });
+   var delayRound = F2(function (b,
+   bS) {
+      return A3(foldps,
+      F2(function ($new,old) {
+         return {ctor: "_Tuple2"
+                ,_0: old
+                ,_1: $new};
+      }),
+      {ctor: "_Tuple2",_0: b,_1: b},
+      bS);
+   });
+   var filterFold = F2(function (f,
+   initial) {
+      return function () {
+         var f$ = F2(function (a,s) {
+            return function () {
+               var res = A2(f,a,s);
+               return {ctor: "_Tuple2"
+                      ,_0: res
+                      ,_1: A2($Maybe.withDefault,
+                      s,
+                      res)};
+            }();
+         });
+         return function ($) {
+            return filter(initial)(A2(foldps,
+            f$,
+            {ctor: "_Tuple2"
+            ,_0: $Maybe.Just(initial)
+            ,_1: initial})($));
+         };
+      }();
+   });
+   var initSignal = function (s) {
+      return A2($Signal.sampleOn,
+      $Signal.constant({ctor: "_Tuple0"}),
+      s);
+   };
+   var switchHelper = F4(function (filter,
+   b,
+   l,
+   r) {
+      return function () {
+         var fromJust = function (_v4) {
+            return function () {
+               switch (_v4.ctor)
+               {case "Just": return _v4._0;}
+               _U.badCase($moduleName,
+               "on line 211, column 25 to 26");
+            }();
+         };
+         var lAndR = A2($Signal.merge,
+         A3(filter,
+         b,
+         $Maybe.Nothing,
+         A2($Signal._op["<~"],
+         $Maybe.Just,
+         l)),
+         A3(filter,
+         A2($Signal._op["<~"],
+         $Basics.not,
+         b),
+         $Maybe.Nothing,
+         A2($Signal._op["<~"],
+         $Maybe.Just,
+         r)));
+         var base = A2($Signal._op["~"],
+         A2($Signal._op["~"],
+         A2($Signal._op["<~"],
+         F3(function (bi,li,ri) {
+            return $Maybe.Just(bi ? li : ri);
+         }),
+         initSignal(b)),
+         initSignal(l)),
+         initSignal(r));
+         return A2($Signal._op["<~"],
+         fromJust,
+         A2($Signal.merge,base,lAndR));
+      }();
+   });
+   var unzip4 = function (pairS) {
+      return {ctor: "_Tuple4"
+             ,_0: A2($Signal._op["<~"],
+             function (_v7) {
+                return function () {
+                   switch (_v7.ctor)
+                   {case "_Tuple4": return _v7._0;}
+                   _U.badCase($moduleName,
+                   "on line 80, column 19 to 20");
+                }();
+             },
+             pairS)
+             ,_1: A2($Signal._op["<~"],
+             function (_v13) {
+                return function () {
+                   switch (_v13.ctor)
+                   {case "_Tuple4":
+                      return _v13._1;}
+                   _U.badCase($moduleName,
+                   "on line 80, column 47 to 48");
+                }();
+             },
+             pairS)
+             ,_2: A2($Signal._op["<~"],
+             function (_v19) {
+                return function () {
+                   switch (_v19.ctor)
+                   {case "_Tuple4":
+                      return _v19._2;}
+                   _U.badCase($moduleName,
+                   "on line 80, column 75 to 76");
+                }();
+             },
+             pairS)
+             ,_3: A2($Signal._op["<~"],
+             function (_v25) {
+                return function () {
+                   switch (_v25.ctor)
+                   {case "_Tuple4":
+                      return _v25._3;}
+                   _U.badCase($moduleName,
+                   "on line 80, column 103 to 104");
+                }();
+             },
+             pairS)};
+   };
+   var unzip3 = function (pairS) {
+      return {ctor: "_Tuple3"
+             ,_0: A2($Signal._op["<~"],
+             function (_v31) {
+                return function () {
+                   switch (_v31.ctor)
+                   {case "_Tuple3":
+                      return _v31._0;}
+                   _U.badCase($moduleName,
+                   "on line 74, column 17 to 18");
+                }();
+             },
+             pairS)
+             ,_1: A2($Signal._op["<~"],
+             function (_v36) {
+                return function () {
+                   switch (_v36.ctor)
+                   {case "_Tuple3":
+                      return _v36._1;}
+                   _U.badCase($moduleName,
+                   "on line 74, column 43 to 44");
+                }();
+             },
+             pairS)
+             ,_2: A2($Signal._op["<~"],
+             function (_v41) {
+                return function () {
+                   switch (_v41.ctor)
+                   {case "_Tuple3":
+                      return _v41._2;}
+                   _U.badCase($moduleName,
+                   "on line 74, column 69 to 70");
+                }();
+             },
+             pairS)};
+   };
+   var unzip = function (pairS) {
+      return {ctor: "_Tuple2"
+             ,_0: A2($Signal._op["<~"],
+             $Basics.fst,
+             pairS)
+             ,_1: A2($Signal._op["<~"],
+             $Basics.snd,
+             pairS)};
+   };
+   var zip4 = $Signal.map4(F4(function (v0,
+   v1,
+   v2,
+   v3) {
+      return {ctor: "_Tuple4"
+             ,_0: v0
+             ,_1: v1
+             ,_2: v2
+             ,_3: v3};
+   }));
+   var zip3 = $Signal.map3(F3(function (v0,
+   v1,
+   v2) {
+      return {ctor: "_Tuple3"
+             ,_0: v0
+             ,_1: v1
+             ,_2: v2};
+   }));
+   var zip = $Signal.map2(F2(function (v0,
+   v1) {
+      return {ctor: "_Tuple2"
+             ,_0: v0
+             ,_1: v1};
+   }));
+   var keepWhen = F3(function (boolSig,
+   a,
+   aSig) {
+      return $Signal.map($Basics.snd)(A2(keepIf,
+      $Basics.fst,
+      {ctor: "_Tuple2"
+      ,_0: true
+      ,_1: a})($Signal.sampleOn(aSig)(A2(zip,
+      boolSig,
+      aSig))));
+   });
+   var switchWhen = F3(function (b,
+   l,
+   r) {
+      return A4(switchHelper,
+      keepWhen,
+      b,
+      l,
+      r);
+   });
+   var sampleWhen = F3(function (bs,
+   def,
+   sig) {
+      return $Signal.map($Basics.snd)(A2(keepIf,
+      $Basics.fst,
+      {ctor: "_Tuple2"
+      ,_0: true
+      ,_1: def})(A2(zip,bs,sig)));
+   });
+   var switchSample = F3(function (b,
+   l,
+   r) {
+      return A4(switchHelper,
+      sampleWhen,
+      b,
+      l,
+      r);
+   });
+   var keepThen = F3(function (choice,
+   base,
+   signal) {
+      return A2(switchSample,
+      choice,
+      signal)($Signal.constant(base));
+   });
+   _op["~>"] = $Basics.flip($Signal.map);
+   var foldp$ = F3(function (fun,
+   initFun,
+   input) {
+      return function () {
+         var fromJust = function (_v46) {
+            return function () {
+               switch (_v46.ctor)
+               {case "Just": return _v46._0;}
+               _U.badCase($moduleName,
+               "on line 107, column 25 to 26");
+            }();
+         };
+         var fun$ = F2(function (_v49,
+         mb) {
+            return function () {
+               switch (_v49.ctor)
+               {case "_Tuple2":
+                  return $Maybe.Just(fun(_v49._0)(A2($Maybe.withDefault,
+                    _v49._1,
+                    mb)));}
+               _U.badCase($moduleName,
+               "between lines 104 and 105");
+            }();
+         });
+         var initial = A2(_op["~>"],
+         initSignal(input),
+         initFun);
+         var rest = A3($Signal.foldp,
+         fun$,
+         $Maybe.Nothing,
+         A2(zip,input,initial));
+         return A2($Signal._op["<~"],
+         fromJust,
+         A2($Signal.merge,
+         A2($Signal._op["<~"],
+         $Maybe.Just,
+         initial),
+         rest));
+      }();
+   });
+   var foldps$ = F3(function (f,
+   iF,
+   aS) {
+      return A2($Signal._op["<~"],
+      $Basics.fst,
+      A3(foldp$,
+      F2(function (a,_v53) {
+         return function () {
+            switch (_v53.ctor)
+            {case "_Tuple2": return A2(f,
+                 a,
+                 _v53._1);}
+            _U.badCase($moduleName,
+            "on line 126, column 46 to 51");
+         }();
+      }),
+      iF,
+      aS));
+   });
+   var foldpWith = F4(function (unpack,
+   step,
+   init,
+   input) {
+      return function () {
+         var step$ = F2(function (a,
+         _v57) {
+            return function () {
+               switch (_v57.ctor)
+               {case "_Tuple2":
+                  return unpack(A2(step,
+                    a,
+                    _v57._1));}
+               _U.badCase($moduleName,
+               "on line 140, column 7 to 25");
+            }();
+         });
+         return A2(_op["~>"],
+         A3($Signal.foldp,
+         step$,
+         init,
+         input),
+         $Basics.fst);
+      }();
+   });
+   var keepWhenI = F2(function (fs,
+   s) {
+      return function () {
+         var fromJust = function (_v61) {
+            return function () {
+               switch (_v61.ctor)
+               {case "Just": return _v61._0;}
+               _U.badCase($moduleName,
+               "on line 257, column 25 to 26");
+            }();
+         };
+         return A2(_op["~>"],
+         A3(keepWhen,
+         A2($Signal.merge,
+         $Signal.constant(true),
+         fs),
+         $Maybe.Nothing,
+         A2($Signal._op["<~"],
+         $Maybe.Just,
+         s)),
+         fromJust);
+      }();
+   });
+   var fairMerge = F3(function (resolve,
+   left,
+   right) {
+      return function () {
+         var merged = A2($Signal.merge,
+         left,
+         right);
+         var boolRight = A2($Signal._op["<~"],
+         $Basics.always(false),
+         right);
+         var boolLeft = A2($Signal._op["<~"],
+         $Basics.always(true),
+         left);
+         var bothUpdated = A2($Signal._op["~"],
+         A2($Signal._op["<~"],
+         F2(function (x,y) {
+            return !_U.eq(x,y);
+         }),
+         A2($Signal.merge,
+         boolLeft,
+         boolRight)),
+         A2($Signal.merge,
+         boolRight,
+         boolLeft));
+         var keep = keepWhenI(bothUpdated);
+         var resolved = A2($Signal._op["~"],
+         A2($Signal._op["<~"],
+         resolve,
+         keep(left)),
+         keep(right));
+         return $Signal.merge(resolved)(merged);
+      }();
+   });
+   _elm.Signal.Extra.values = {_op: _op
+                              ,zip: zip
+                              ,zip3: zip3
+                              ,zip4: zip4
+                              ,unzip: unzip
+                              ,unzip3: unzip3
+                              ,unzip4: unzip4
+                              ,foldp$: foldp$
+                              ,foldps: foldps
+                              ,foldps$: foldps$
+                              ,runBuffer: runBuffer
+                              ,runBuffer$: runBuffer$
+                              ,delayRound: delayRound
+                              ,keepIf: keepIf
+                              ,keepWhen: keepWhen
+                              ,sampleWhen: sampleWhen
+                              ,switchWhen: switchWhen
+                              ,keepWhenI: keepWhenI
+                              ,switchSample: switchSample
+                              ,keepThen: keepThen
+                              ,filter: filter
+                              ,filterFold: filterFold
+                              ,fairMerge: fairMerge
+                              ,combine: combine
+                              ,mapMany: mapMany
+                              ,applyMany: applyMany};
+   return _elm.Signal.Extra.values;
 };Elm.String = Elm.String || {};
 Elm.String.make = function (_elm) {
    "use strict";
