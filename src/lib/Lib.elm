@@ -183,7 +183,7 @@ ngon = ngon' Color.black
 
 ngon' : Color -> Float -> Float -> Form
 ngon' c n r =
-  rotate (pi/2) <|
+  Graphics.Collage.rotate (pi/2) <|
   Graphics.Collage.filled c <|
   Graphics.Collage.ngon (floor n) r
 
@@ -207,10 +207,14 @@ group : List Form -> Form
 group = Graphics.Collage.group
 
 scale : Float -> Form -> Form
-scale = Graphics.Collage.scale
+scale x f =
+  Graphics.Collage.scale x <|
+  group [ f ]
 
 rotate : Float -> Form -> Form
-rotate = Graphics.Collage.rotate
+rotate a f =
+  Graphics.Collage.rotate a <|
+  group [ f ]
 
 alpha : Float -> Form -> Form
 alpha = Graphics.Collage.alpha

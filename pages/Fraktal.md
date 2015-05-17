@@ -15,9 +15,7 @@ sierpinski i =
   if i > 0
     then
       let 
-        s = group
-            [ sierpinski (i-1) ]
-            |> scale 0.5
+        s = sierpinski (i-1) |> scale 0.5
       in
         ...
     else
