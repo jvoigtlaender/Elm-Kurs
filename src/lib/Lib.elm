@@ -47,11 +47,11 @@ display' p1 p2 f =
 displayWithState' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
 displayWithState' (x1,y1) (x2,y2) f =
   let
-    x = x2 - x1
-    y = y2 - y1
-    d = (toFloat (-x1 - x2) / 2, toFloat (-y1 - y2) / 2) 
+    x2_ = max (x1 + 1) x2
+    y2_ = max (y1 + 1) y2
+    d = (toFloat (-x1 - x2_) / 2, toFloat (-y1 - y2_) / 2) 
   in
-   toScreen x1 y2 (\_ p t s -> Graphics.Collage.collage x y [ move d (f p t s) ]) []
+   toScreen x1 y2_ (\_ p t s -> Graphics.Collage.collage (x2_ - x1) (y2_ - y1) [ move d (f p t s) ]) []
 
 display : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
 display p1 p2 f mt =
@@ -63,10 +63,12 @@ displayWithState =
 
 -- not exported
 elaborateDisplay mr (x1,y1) (x2,y2) f ini upd =
-  let x1' = toFloat x1
+  let x2_ = max (x1 + 1) x2
+      y2_ = max (y1 + 1) y2
+      x1' = toFloat x1
       y1' = toFloat y1
-      x2' = toFloat x2
-      y2' = toFloat y2
+      x2' = toFloat x2_
+      y2' = toFloat y2_
       grid = makeGrid x1' y1' x2' y2'
       gridMbx = Signal.mailbox False  -- value here actually irrelevant
       gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address)
@@ -74,8 +76,8 @@ elaborateDisplay mr (x1,y1) (x2,y2) f ini upd =
       restartButt = case mr of
                       Nothing -> []
                       Just msg -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message restartMbx.address ()) msg ]
-      x = x2 - x1
-      y = y2 - y1
+      x = x2_ - x1
+      y = y2_ - y1
       d = ((-x1' - x2') / 2, (-y1' - y2') / 2)
       f' g p t s =
          Graphics.Element.flow Graphics.Element.up
@@ -85,7 +87,7 @@ elaborateDisplay mr (x1,y1) (x2,y2) f ini upd =
            Graphics.Collage.collage x y
            ((if g then [ grid ] else []) ++ [ move d (f p t s) ]) ]
   in
-   toScreen x1 y2 f'
+   toScreen x1 y2_ f'
    [ Signal.map
        (\g _ t' state -> (t', { state | gridOn <- g, s <- upd NoEvent state.mousePos t' state.s }))
        gridMbx.signal
