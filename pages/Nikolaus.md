@@ -13,7 +13,7 @@ scene _ _ =
   , path [ (-50,-65), (50,65) ]
   ]
 
-main = display (400,300) scene Nothing
+main = display (-200,-150) (200,150) scene Nothing
 ```
 
 <!--

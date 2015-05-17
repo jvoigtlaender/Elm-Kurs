@@ -27,7 +27,7 @@ scene (x,y) t =
   in
     group (List.indexedMap (fun << toFloat) list)
 
-main = display (400,300) scene (Just (FPS 50))
+main = display (-200,-150) (200,150) scene (Just (FPS 50))
 ```
 
 so dass interessantes, von sowohl der Mausbewegung als auch der Zeit abhängiges Verhalten entsteht.

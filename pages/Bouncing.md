@@ -16,7 +16,7 @@ scene _ t =
     , circle 20 |> move (0,h)
     ]
 
-main = display (400,300) scene (Just (FPS 50))
+main = display (-200,-100) (200,200) scene (Just (FPS 50))
 ```
 
 so dass ein auf und ab springender Ball zu sehen ist, wie etwa [hier](http://jvoigtlaender.github.io/Elm-Kurs/examples/Bouncing.html).

@@ -29,7 +29,7 @@ scene (x,y) _ =
   , form (x,y) 10
   ]
 
-main = display (400,300) scene Nothing
+main = display (-200,-150) (200,150) scene Nothing
 ```
 
 <!--

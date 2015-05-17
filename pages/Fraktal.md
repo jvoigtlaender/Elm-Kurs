@@ -23,7 +23,7 @@ sierpinski i =
     else
       ngon 3 120
 
-main = display (400,300) scene Nothing
+main = display (-200,-150) (200,150) scene Nothing
 ```
 
 so dass `sierpinski i` jeweils die `i`. Stufe des [Sierpinski-Dreiecks](http://de.wikipedia.org/wiki/Sierpinski-Dreieck) darstellt, wobei der Umkreisradius des Gesamtdreiecks gleich `120` sein soll.
