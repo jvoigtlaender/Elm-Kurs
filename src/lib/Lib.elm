@@ -23,58 +23,69 @@ import Color
 gridsize = 20
 
 -- not exported
-makeGrid : (Float,Float) -> List Form
-makeGrid (x,y) =
+makeGrid x1 y1 x2 y2 =
   let
-    xh = x/2
-    yh = y/2
-    i = floor(xh/gridsize)
-    j = floor(yh/gridsize)
-  in
-   List.map (\i -> let x = toFloat i * gridsize in path' (dotted (Color.greyscale 0.15)) [ (x,-yh), (x,yh) ]) [ -i .. i ]
+    x_ = (x1 + x2) / 2
+    xh = x_ - x1
+    y_ = (y1 + y2) / 2
+    yh = y_ - y1
+  in group <|
+   List.map (\i -> let x = toFloat i * gridsize - x_ in path' (dotted (Color.greyscale 0.15)) [ (x,-yh), (x,yh) ])
+            [ ceiling (x1/gridsize) .. floor (x2/gridsize) ]
    ++
-   List.map (\j -> let y = toFloat j * gridsize in path' (dotted (Color.greyscale 0.15)) [ (-xh,y), (xh,y) ]) [ -j .. j ]
+   List.map (\j -> let y = toFloat j * gridsize - y_ in path' (dotted (Color.greyscale 0.15)) [ (-xh,y), (xh,y) ])
+            [ ceiling (y1/gridsize) .. floor (y2/gridsize) ]
    ++
-   [Graphics.Collage.filled Color.red (Graphics.Collage.circle 2)]
+   [ move (-x_,-y_) (Graphics.Collage.filled Color.red (Graphics.Collage.circle 2))]
 
 type Timing = Every Float | FPS Float | AnimationFrame
 
-display' : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
-display' (x,y) f =
-  displayWithState' (x,y) (\p t _ -> f p t) () (\_ _ _ -> identity)
+display' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display' p1 p2 f =
+  displayWithState' p1 p2 (\p t _ -> f p t) () (\_ _ _ -> identity)
 
-displayWithState' : (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
-displayWithState' (x,y) f =
-  toScreen (toFloat x, toFloat y) (\_ p t s -> Graphics.Collage.collage x y [f p t s]) []
+displayWithState' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+displayWithState' (x1,y1) (x2,y2) f =
+  let
+    x = x2 - x1
+    y = y2 - y1
+    d = (toFloat (-x1 - x2) / 2, toFloat (-y1 - y2) / 2) 
+  in
+   toScreen x1 y2 (\_ p t s -> Graphics.Collage.collage x y [ move d (f p t s) ]) []
 
-display : (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
-display (x,y) f mt =
-  elaborateDisplay (Maybe.map (always "Zeit auf Null") mt) (x,y) (\p t _ -> f p t) () (\_ _ _ -> identity) mt
+display : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display p1 p2 f mt =
+  elaborateDisplay (Maybe.map (always "Zeit auf Null") mt) p1 p2 (\p t _ -> f p t) () (\_ _ _ -> identity) mt
 
-displayWithState : (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+displayWithState : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
 displayWithState =
   elaborateDisplay (Just "auf Anfang")
 
 -- not exported
-elaborateDisplay mr (x,y) f ini upd =
-  let x' = toFloat x
-      y' = toFloat y
-      grid = group (makeGrid (x',y'))
+elaborateDisplay mr (x1,y1) (x2,y2) f ini upd =
+  let x1' = toFloat x1
+      y1' = toFloat y1
+      x2' = toFloat x2
+      y2' = toFloat y2
+      grid = makeGrid x1' y1' x2' y2'
       gridMbx = Signal.mailbox False  -- value here actually irrelevant
       gridCheck = Graphics.Input.checkbox (Signal.message gridMbx.address)
       restartMbx = Signal.mailbox ()
       restartButt = case mr of
                       Nothing -> []
                       Just msg -> [ Graphics.Element.spacer 10 10, Graphics.Input.button (Signal.message restartMbx.address ()) msg ]
+      x = x2 - x1
+      y = y2 - y1
+      d = ((-x1' - x2') / 2, (-y1' - y2') / 2)
       f' g p t s =
          Graphics.Element.flow Graphics.Element.up
          [ Graphics.Element.flow Graphics.Element.left <| Graphics.Element.show p :: gridCheck g :: restartButt
          , Graphics.Element.color (Color.greyscale 0.05) <|
            Graphics.Element.container x y Graphics.Element.middle <|
            Graphics.Collage.collage x y
-           ((if g then [ grid ] else []) ++ [f p t s]) ]
+           ((if g then [ grid ] else []) ++ [ move d (f p t s) ]) ]
   in
-   toScreen (x',y') f'
+   toScreen x1 y2 f'
    [ Signal.map
        (\g _ t' state -> (t', { state | gridOn <- g, s <- upd NoEvent state.mousePos t' state.s }))
        gridMbx.signal
@@ -87,11 +98,7 @@ elaborateDisplay mr (x,y) f ini upd =
 type Event = Space | Left | Up | Right | Down | Click | NoEvent
 
 -- not exported
-toScreen (x,y) f extra_sigs ini upd mt =
-  let
-    xh = x/2
-    yh = y/2
-  in
+toScreen x1 y2 f extra_sigs ini upd mt =
    Signal.map (\(t, { gridOn, mousePos, s }) -> f gridOn mousePos t s) <|
    Signal.Extra.foldp'
      (\(t, action) (_, state) -> action t ((t - state.lastReset) / 1000) state)
@@ -119,7 +126,7 @@ toScreen (x,y) f extra_sigs ini upd mt =
      ]
    ++
    Signal.map
-       (\(x,y) _ t' state -> let pos = (toFloat x - xh, yh - toFloat y)
+       (\(x,y) _ t' state -> let pos = (toFloat (x1 + x), toFloat (y2 - y))
                              in (t', { state | mousePos <- pos, s <- upd NoEvent pos t' state.s }))
        Mouse.position
    ::

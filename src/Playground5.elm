@@ -12,5 +12,5 @@ scene _ t =
     ]
     |> move (0,50)
 
-main = display (400,300) scene (Just (Every 0.02))
+main = display (-200,-150) (200,150) scene (Just (Every 0.02))
 

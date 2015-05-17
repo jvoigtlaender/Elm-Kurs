@@ -16,5 +16,5 @@ sierpinski i =
     else
       ngon 3 120
 
-main = display (400,300) scene Nothing
+main = display (-200,-150) (200,150) scene Nothing
 
