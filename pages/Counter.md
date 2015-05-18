@@ -35,7 +35,7 @@ Es gibt einige Dinge zu erklären:
 
 * Mittels der `displayWithState`-Funktion bringen wir schließlich alles zusammen.
 
-Aufgabe: Verändere obiges Programm, so dass der Zähler bei `10` startet, mittels der Pfeil-Nach-Oben-Taste erhöht und mittels der Pfeil-Nach-Unten-Taste verringert wird, allerdings nie unter `0` sinkt. Außerdem soll die Leertaste nun dazu dienen, den Zähler jederzeit auf `0` setzen zu können. (Für die vier Pfeiltasten stehen die konkreten Ereignisse `Left`, `Up`, `Right` und `Down` bereit.)
+Aufgabe: Verändere obiges Programm, so dass der Zähler bei `10` startet, mittels der Pfeil-Nach-Oben-Taste erhöht und mittels der Pfeil-Nach-Unten-Taste verringert wird, allerdings nie unter `0` sinkt. Außerdem soll die Leertaste nun dazu dienen, den Zähler jederzeit auf `0` setzen zu können. (Für die vier Pfeiltasten existieren die Ereignisnamen `Left`, `Up`, `Right` und `Down`.)
 
 ---
 
