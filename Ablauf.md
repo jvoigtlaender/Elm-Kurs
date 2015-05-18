@@ -89,9 +89,13 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 [Freies Spiel der Kräfte](pages/Kreativ.md)
 
+# Achte Aufgabe
+
+[Zustandsverhalten](pages/Counter.md)
+
 # Zusatzaufgabe
 
-[Sierpinski-Dreieck](pages/Fraktal.md)
+[Rekursion für das Sierpinski-Dreieck](pages/Fraktal.md)
 
 # Weggelassene Aufgabe
 
