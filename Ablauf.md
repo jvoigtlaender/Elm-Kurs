@@ -9,11 +9,11 @@ http://tinyurl.com/Elm-Kurs
 Dann Erklärungen zu (neben Listensyntax):
 
 ```elm
-rectangle : (Float,Float) -> Form
-square : Float -> Form
-circle : Float -> Form
-oval : (Float,Float) -> Form
-text : String -> Form
+rectangle : (Float,Float) -> Picture
+square : Float -> Picture
+circle : Float -> Picture
+oval : (Float,Float) -> Picture
+text : String -> Picture
 ```
 
 Obige jeweils zentriert um Ursprung.
@@ -21,13 +21,13 @@ Obige jeweils zentriert um Ursprung.
 Anders (absolute Koordinaten) bei:
 
 ```elm
-path : List (Float,Float) -> Form
+path : List (Float,Float) -> Picture
 ```
 
 Für Zusatz (und bei weiteren Aufgaben) nützlich:
 
 ```elm
-move : (Float,Float) -> Form -> Form
+move : (Float,Float) -> Picture -> Picture
 ```
 
 # Zweite Aufgabe
@@ -40,7 +40,7 @@ Erklärungen:
 * Eventuell Zusammenfassen von Bildern in einzelnes Bild (um etwa als Eingabe für `move` zu dienen):
 
   ```elm
-  group : List Form -> Form
+  group : List Picture -> Picture
   ```
 
 # Dritte Aufgabe
@@ -52,11 +52,11 @@ Erklärungen dabei:
 * Styling:
 
   ```elm
-  rectangle' : LineStyle -> (Float,Float) -> Form
-  square' : LineStyle -> Float -> Form
-  circle' : LineStyle -> Float -> Form
-  oval' : LineStyle -> (Float,Float) -> Form
-  path' : LineStyle -> List (Float,Float) -> Form
+  rectangle' : LineStyle -> (Float,Float) -> Picture
+  square' : LineStyle -> Float -> Picture
+  circle' : LineStyle -> Float -> Picture
+  oval' : LineStyle -> (Float,Float) -> Picture
+  path' : LineStyle -> List (Float,Float) -> Picture
   
   solid : Color -> LineStyle
   dashed : Color -> LineStyle

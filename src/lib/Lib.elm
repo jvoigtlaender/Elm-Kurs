@@ -1,4 +1,4 @@
-module Lib ( Timing(..), Event(..), Form, LineStyle,
+module Lib ( Timing(..), Event(..), Picture, LineStyle,
              display, displayWithState, display', displayWithState',
              circle, circle', rectangle, rectangle', square, square', path, path', oval, oval',
              ngon, ngon', polygon, polygon', text, image, icon, icon', empty,
@@ -40,11 +40,11 @@ makeGrid x1 y1 x2 y2 =
 
 type Timing = Every Float | FPS Float | AnimationFrame
 
-display' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Picture) -> Maybe Timing -> Signal Graphics.Element.Element
 display' p1 p2 f =
   displayWithState' p1 p2 (\p t _ -> f p t) () (\_ _ _ -> identity)
 
-displayWithState' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+displayWithState' : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Picture) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
 displayWithState' (x1,y1) (x2,y2) f =
   let
     x2_ = max (x1 + 1) x2
@@ -53,11 +53,11 @@ displayWithState' (x1,y1) (x2,y2) f =
   in
    toScreen x1 y2_ (\_ p t s -> Graphics.Collage.collage (x2_ - x1) (y2_ - y1) [ move d (f p t s) ]) []
 
-display : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Form) -> Maybe Timing -> Signal Graphics.Element.Element
+display : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> Picture) -> Maybe Timing -> Signal Graphics.Element.Element
 display p1 p2 f mt =
   elaborateDisplay (Maybe.map (always "Zeit auf Null") mt) p1 p2 (\p t _ -> f p t) () (\_ _ _ -> identity) mt
 
-displayWithState : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Form) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
+displayWithState : (Int,Int) -> (Int,Int) -> ((Float,Float) -> Float -> a -> Picture) -> a -> (Event -> (Float,Float) -> Float -> a -> a) -> Maybe Timing -> Signal Graphics.Element.Element
 displayWithState =
   elaborateDisplay (Just "auf Anfang")
 
@@ -134,89 +134,89 @@ toScreen x1 y2 f extra_sigs ini upd mt =
    ::
    extra_sigs
 
-type alias Form = Graphics.Collage.Form
+type alias Picture = Graphics.Collage.Form
 
-circle : Float -> Form
+circle : Float -> Picture
 circle = circle' Graphics.Collage.defaultLine
 
-circle' : LineStyle -> Float -> Form
+circle' : LineStyle -> Float -> Picture
 circle' s r =
   Graphics.Collage.outlined s <|
   Graphics.Collage.circle r
 
-rectangle : (Float,Float) -> Form
+rectangle : (Float,Float) -> Picture
 rectangle = rectangle' Graphics.Collage.defaultLine
 
-rectangle' : LineStyle -> (Float,Float) -> Form
+rectangle' : LineStyle -> (Float,Float) -> Picture
 rectangle' s (x,y) =
   Graphics.Collage.outlined s <|
   Graphics.Collage.rect x y
 
-path : List (Float,Float) -> Form
+path : List (Float,Float) -> Picture
 path = path' Graphics.Collage.defaultLine
 
-path' : LineStyle -> List (Float,Float) -> Form
+path' : LineStyle -> List (Float,Float) -> Picture
 path' s ps =
   Graphics.Collage.traced s <|
   Graphics.Collage.path ps
 
-oval : (Float,Float) -> Form
+oval : (Float,Float) -> Picture
 oval = oval' Graphics.Collage.defaultLine
 
-oval' : LineStyle -> (Float,Float) -> Form
+oval' : LineStyle -> (Float,Float) -> Picture
 oval' s (x,y) =
   Graphics.Collage.outlined s <|
   Graphics.Collage.oval x y
 
-square : Float -> Form
+square : Float -> Picture
 square = square' Graphics.Collage.defaultLine
 
-square' : LineStyle -> Float -> Form
+square' : LineStyle -> Float -> Picture
 square' s a =
   Graphics.Collage.outlined s <|
   Graphics.Collage.square a
 
 type alias Color = Color.Color
 
-ngon : Float -> Float -> Form
+ngon : Float -> Float -> Picture
 ngon = ngon' Color.black
 
-ngon' : Color -> Float -> Float -> Form
+ngon' : Color -> Float -> Float -> Picture
 ngon' c n r =
   Graphics.Collage.rotate (pi/2) <|
   Graphics.Collage.filled c <|
   Graphics.Collage.ngon (floor n) r
 
-polygon : List (Float,Float) -> Form
+polygon : List (Float,Float) -> Picture
 polygon = polygon' Graphics.Collage.defaultLine
 
-polygon' : LineStyle -> List (Float,Float) -> Form
+polygon' : LineStyle -> List (Float,Float) -> Picture
 polygon' s ps =
   Graphics.Collage.outlined s <|
   Graphics.Collage.polygon ps
 
-text : String -> Form
+text : String -> Picture
 text s =
   Graphics.Collage.text <|
   Text.fromString s
 
-move : (Float,Float) -> Form -> Form
+move : (Float,Float) -> Picture -> Picture
 move = Graphics.Collage.move
 
-group : List Form -> Form
+group : List Picture -> Picture
 group = Graphics.Collage.group
 
-scale : Float -> Form -> Form
+scale : Float -> Picture -> Picture
 scale x f =
   Graphics.Collage.scale x <|
   group [ f ]
 
-rotate : Float -> Form -> Form
+rotate : Float -> Picture -> Picture
 rotate a f =
   Graphics.Collage.rotate a <|
   group [ f ]
 
-alpha : Float -> Form -> Form
+alpha : Float -> Picture -> Picture
 alpha = Graphics.Collage.alpha
 
 type alias LineStyle = Graphics.Collage.LineStyle
@@ -230,18 +230,18 @@ dashed = Graphics.Collage.dashed
 dotted : Color -> LineStyle
 dotted = Graphics.Collage.dotted
 
-image : (Float,Float) -> String -> Form
+image : (Float,Float) -> String -> Picture
 image (x,y) s =
   Graphics.Collage.toForm <|
   Graphics.Element.image (round x) (round y) s
 
-empty : Form
+empty : Picture
 empty = Graphics.Collage.toForm Graphics.Element.empty
 
-icon : Float -> (Color -> Int -> Html.Html) -> Form
+icon : Float -> (Color -> Int -> Html.Html) -> Picture
 icon = icon' Color.black
 
-icon' : Color -> Float -> (Color -> Int -> Html.Html) -> Form
+icon' : Color -> Float -> (Color -> Int -> Html.Html) -> Picture
 icon' c s i =
   let s' = round s
   in
