@@ -9,21 +9,21 @@ Passe so an, dass von den 10 konzentrischen Kreisen die inneren fünf rot, die äu
 ```elm
 import Color exposing (..)
 
-form i =
+pic i =
   circle (10 * i)
 
 scene _ _ =
   group
-  [ form 1
-  , form 2
-  , form 3
-  , form 4
-  , form 5
-  , form 6
-  , form 7
-  , form 8
-  , form 9
-  , form 10
+  [ pic 1
+  , pic 2
+  , pic 3
+  , pic 4
+  , pic 5
+  , pic 6
+  , pic 7
+  , pic 8
+  , pic 9
+  , pic 10
   ]
 
 main = display (-200,-150) (200,150) scene Nothing
@@ -42,7 +42,7 @@ Hinweise:
   ![oval'](../images/oval'.png)  
   Eine Übersicht vorhandener Farben und Möglichkeiten zur Erzeugung neuer findet man bei Bedarf [hier](http://package.elm-lang.org/packages/elm-lang/core/latest/Color).
 
-* Um abhängig von irgendeiner Bedingung verschiedene Ergebnisse (zum Beispiel einer Funktion wie `form i = ...`) zu liefern, lässt sich `if ... then ... else ...` verwenden.
+* Um abhängig von irgendeiner Bedingung verschiedene Ergebnisse (zum Beispiel einer Funktion wie `pic i = ...`) zu liefern, lässt sich `if ... then ... else ...` verwenden.
 
 Zielbild:
 

@@ -18,10 +18,10 @@ list =
 
 scene (x,y) t =
   let
-    fun i (form, alpha) =
+    fun i (pic, alpha) =
       let
         (a,b) = (120 * cos(alpha + t/1.5), 120 * sin(alpha + t/1.5))
-        image = group [form, text (toString i)]
+        image = group [pic, text (toString i)]
       in
         image |> move (a,b)
   in
