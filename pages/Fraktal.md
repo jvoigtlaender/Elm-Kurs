@@ -1,4 +1,4 @@
-[Zurück](Mario.md)
+[Zurück](Stamping.md)
 
 ---
 

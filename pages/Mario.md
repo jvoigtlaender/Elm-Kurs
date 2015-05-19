@@ -49,5 +49,5 @@ Zusatz: Erweitere nun das Programm, so dass wenn Mario nach links oder rechts lä
 
 ---
 
-[Zusatz](Fraktal.md)
+[Weiter](Stamping.md)
 

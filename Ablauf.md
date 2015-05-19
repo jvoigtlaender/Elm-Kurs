@@ -97,6 +97,10 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 [Zustandsmodellierung](pages/Mario.md)
 
+# Zehnte Aufgabe
+
+[Zustand + Maus](pages/Stamping.md)
+
 # Zusatzaufgabe
 
 [Rekursion für das Sierpinski-Dreieck](pages/Fraktal.md)
