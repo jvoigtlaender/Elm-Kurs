@@ -43,5 +43,5 @@ Aufgabe: Verändere obiges Programm, so dass der Zähler bei `10` startet, mittels
 
 ---
 
-[Zusatz](Mario.md)
+[Weiter](Mario.md)
 

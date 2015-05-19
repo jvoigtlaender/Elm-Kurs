@@ -45,7 +45,7 @@ Aufgabe: Vervollständige obiges Programm, so dass "Mario" mit den vier Pfeiltast
 [Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground9.elm)
 -->
 
-Zusatz: Erweitere nun das Programm, so dass wenn Mario nach links oder rechts läuft, er auch in die entsprechende Richtung guckt. Praktischerweise steht neben "http://elm-lang.org/imgs/mario/stand/right.gif" auch "http://elm-lang.org/imgs/mario/stand/left.gif" bereit. Um das gewünschte Verhalten zu realisieren, ist jedoch auch eine Erweiterung des Zustandstyps nötig, mindestens von einem Paar zu einem Tripel. Denkbar wäre zum Beispiel, `State` so anzupassen, dass neben den zwei Fließkommazahlen auch noch direkt das aktuell gerade relevante Bild (Mario nach rechts guckend oder Mario nach links guckend) gespeichert wird.
+Zusatz: Erweitere nun das Programm, so dass wenn Mario nach links oder rechts läuft, er auch in die entsprechende Richtung guckt. Praktischerweise steht neben `"http://elm-lang.org/imgs/mario/stand/right.gif"` auch `"http://elm-lang.org/imgs/mario/stand/left.gif"` bereit. Um das gewünschte Verhalten zu realisieren, ist jedoch auch eine Erweiterung des Zustands-Typs nötig, mindestens von einem Paar zu einem Tripel. Denkbar wäre zum Beispiel, `State` so anzupassen, dass neben den zwei Fließkommazahlen auch noch direkt das aktuell gerade relevante Bild (Mario nach rechts guckend oder Mario nach links guckend) gespeichert wird.
 
 ---
 
