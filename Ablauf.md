@@ -93,6 +93,10 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 [Zustandsverhalten](pages/Counter.md)
 
+# Neunte Aufgabe
+
+[Zustandsmodellierung](pages/Mario.md)
+
 # Zusatzaufgabe
 
 [Rekursion für das Sierpinski-Dreieck](pages/Fraktal.md)
