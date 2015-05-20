@@ -1,8 +1,7 @@
 import Lib exposing (..)
 
 scene _ _ =
-  group
-  [ sierpinski 4 ]
+  sierpinski 4
 
 sierpinski i = 
   if i > 0

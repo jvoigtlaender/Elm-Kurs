@@ -29,14 +29,16 @@ makeGrid x1 y1 x2 y2 =
     xh = x_ - x1
     y_ = (y1 + y2) / 2
     yh = y_ - y1
-  in group <|
-   List.map (\i -> let x = toFloat i * gridsize - x_ in path' (dotted (Color.greyscale 0.15)) [ (x,-yh), (x,yh) ])
-            [ ceiling (x1/gridsize) .. floor (x2/gridsize) ]
-   ++
-   List.map (\j -> let y = toFloat j * gridsize - y_ in path' (dotted (Color.greyscale 0.15)) [ (-xh,y), (xh,y) ])
-            [ ceiling (y1/gridsize) .. floor (y2/gridsize) ]
-   ++
-   [ move (-x_,-y_) (Graphics.Collage.filled Color.red (Graphics.Collage.circle 2))]
+  in
+   group
+   [ group <|
+     List.map (\i -> let x = toFloat i * gridsize - x_ in path' (dotted (Color.greyscale 0.15)) [ (x,-yh), (x,yh) ])
+              [ ceiling (x1/gridsize) .. floor (x2/gridsize) ]
+   , group <|
+     List.map (\j -> let y = toFloat j * gridsize - y_ in path' (dotted (Color.greyscale 0.15)) [ (-xh,y), (xh,y) ])
+              [ ceiling (y1/gridsize) .. floor (y2/gridsize) ]
+   , move (-x_,-y_) (Graphics.Collage.filled Color.red (Graphics.Collage.circle 2))
+   ]
 
 type Timing = Every Float | FPS Float | AnimationFrame
 
