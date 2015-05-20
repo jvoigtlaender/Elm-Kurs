@@ -6,7 +6,7 @@
 
 Jetzt wollen wir [dies](http://jvoigtlaender.github.io/Elm-Kurs/examples/Stamping.html) umsetzen. (Bewege die Maus und klicke zwischendurch ein paar Mal.)
 
-Als Zustand bietet sich eine Liste von schon "angesammelten" Stempel-Teilbildern an. Listen hatten wir bisher als Argumente für `path` und `group`. Sie lassen sich aber auch unabhängig davon anlegen und verwenden.
+Als Zustand bietet sich eine Liste von schon "angesammelten" Stempel-Teilbildern an. Listen hatten wir bisher als direkte Argumente für `path` und `group`. Sie lassen sich aber auch unabhängig davon anlegen und verwenden.
 
 Verändere die `update`-Funktion in folgendem Programm:
 
@@ -35,13 +35,17 @@ so dass das gewünschte Verhalten entsteht.
 [Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground10.elm)
 -->
 
-Hilfestellungen:
+Hinweise:
 
 * `[]` steht für eine leere Liste, wohingegen `++` die Erweiterung einer Liste (oder allgemein das Aneinanderhängen zweier Listen) ermöglicht.
 
 * In `update` und `scene` kann, und hier sollte, über das entsprechende Argument auf die aktuelle Mausposition zugegriffen werden. (Den aktuellen Zeitwert ignorieren wir vorerst weiterhin.)
 
 * Um auf Mausklicks zu reagieren, existiert der Ereignisname `Click`.
+
+* Mittels `ngon`/`ngon'` werden (ausgefüllte) Flächen von regelmäßigen Polygonen mit gegebener Eckenzahl und Umkreisradius beschrieben.
+
+Zusatz: Erweitere nun das Programm, so dass nach jedem Klick der "Stempel" etwas größer wird (und in der Folge danach auch entsprechend größere Abdrücke hinterlässt).
 
 ---
 
