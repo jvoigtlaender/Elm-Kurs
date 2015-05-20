@@ -7,6 +7,7 @@ module Lib ( Timing(..), Event(..), Picture, LineStyle,
            ) where
 
 import Set
+import Array
 import Text
 import Time
 import AnimationFrame
@@ -100,6 +101,10 @@ elaborateDisplay mr (x1,y1) (x2,y2) f ini upd =
    ini upd
 
 type Event = Space | Left | Up | Right | Down | Click | NoEvent
+           | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
+
+-- not exported
+letters = Array.fromList [A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]
 
 -- not exported
 toScreen x1 y2 f extra_sigs ini upd mt =
@@ -124,6 +129,7 @@ toScreen x1 y2 f extra_sigs ini upd mt =
                    [38] -> Up
                    [39] -> Right
                    [40] -> Down
+                   [a]  -> Maybe.withDefault NoEvent (Array.get (a-65) letters)
                    _ -> NoEvent)
          Keyboard.keysDown
      , Signal.map (always Click) Mouse.clicks
