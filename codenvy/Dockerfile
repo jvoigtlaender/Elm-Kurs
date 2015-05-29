@@ -10,5 +10,5 @@ ENV CODENVY_APP_PORT_80_HTTP 3000
 
 ENV CODENVY_APP_BIND_DIR $HOME/application
 
-CMD cd ~/application && elm-package install -y && elm-make && elm-reactor --port=3000
+CMD elm-package install -y && elm-make && elm-reactor --port=3000
 
