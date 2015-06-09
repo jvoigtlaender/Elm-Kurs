@@ -8,7 +8,7 @@ Jetzt wollen wir [dies](http://jvoigtlaender.github.io/Elm-Kurs/examples/Stampin
 
 Als Zustand bietet sich eine Liste von schon "angesammelten" Stempel-Teilbildern an. Listen hatten wir bisher als direkte Argumente für `path` und `group`. Sie lassen sich aber auch unabhängig davon anlegen und verwenden.
 
-Verändere die `update`-Funktion in folgendem Programm:
+Verändere die `update`-Funktion in folgendem Programm (`Stamping.elm`):
 
 ```elm
 import Color exposing (..)
@@ -32,7 +32,7 @@ main = displayWithState (-200,-150) (200,150) scene initial update Nothing
 so dass das gewünschte Verhalten entsteht.
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground10.elm)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Stamping.elm)
 -->
 
 Hinweise:

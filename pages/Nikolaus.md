@@ -4,7 +4,7 @@
 
 # Erste Aufgabe
 
-Vervollständige, um das Haus des Nikolaus zu malen:
+Vervollständige `Nikolaus.elm`, um das Haus des Nikolaus zu malen:
 
 ```elm
 scene _ _ =
@@ -17,7 +17,7 @@ main = display (-200,-150) (200,150) scene Nothing
 ```
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground1.elm), [@share-elm](http://share-elm.com/sprout/553a8a56e4b06aacf0e89849/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Nikolaus.elm), [@share-elm](http://share-elm.com/sprout/553a8a56e4b06aacf0e89849/0.15/view)
 -->
 
 Zielbild, etwa:

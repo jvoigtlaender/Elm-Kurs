@@ -4,7 +4,7 @@
 
 # Siebte Aufgabe
 
-Verändere folgendes Programm:
+Verändere folgendes Programm (`Kreativ.elm`):
 
 ```elm
 import Color exposing (..)
@@ -34,7 +34,7 @@ so dass interessantes, von sowohl der Mausbewegung als auch der Zeit abhängiges 
 Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreativ.html).
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground7.elm), [@share-elm](http://share-elm.com/sprout/553a8901e4b06aacf0e89845/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Kreativ.elm), [@share-elm](http://share-elm.com/sprout/553a8901e4b06aacf0e89845/0.15/view)
 -->
 
 Der Kreativität freien Lauf!

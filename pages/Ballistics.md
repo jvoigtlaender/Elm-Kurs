@@ -8,7 +8,7 @@ Oft soll eine Zustandsveränderung nicht nur bei spezifischen Ereignissen wie Tas
 
 Zu jedem Zeitpunkt hat die Kanonenkugel eine bestimmte Position und Geschwindigkeit (jeweils als Vektoren darstellbar), diese müssen also Teil der Zustandsinformation sein. Unten ist bereits ausprogrammiert, wie sich das Drücken der `W`-Taste auf diesen Teil des Zustands auswirken soll, insbesondere auf die `x`-Komponente des Geschwindigkeitsvektors. Unabhängig davon muss sich der Zustand jedoch auch ändern, wenn einfach nur Zeit vergeht. Zu diesem Zweck kann in `update` auf den aktuellen Zeitwert zugegriffen werden. Daneben sollte man aber auch wissen, was der Zeitwert des letzten "Ticks" war, um die seitdem vergangende Zeit bestimmen zu können. Daher wird der letzte relevante Zeitwert (ganz am Anfang `0`) auch noch zum Teil der Zustandsinformation gemacht.
 
-Vervollständige die `update`-Funktion in folgendem Programm:
+Vervollständige die `update`-Funktion in folgendem Programm (`Ballistics.elm`):
 
 ```elm
 type alias Position = (Float,Float)
@@ -48,7 +48,7 @@ main = displayWithState (-10,-10) (600,300) scene initial update (Just (FPS 50))
 so dass die physikalische Simulation korrekt abläuft.
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground11.elm)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Ballistics.elm)
 -->
 
 Hinweise:

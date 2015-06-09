@@ -4,7 +4,7 @@
 
 # Dritte Aufgabe
 
-Passe so an, dass von den 10 konzentrischen Kreisen die inneren fünf rot, die äußeren fünf grün sind:
+Passe `Kreise.elm` so an, dass von den 10 konzentrischen Kreisen die inneren fünf rot, die äußeren fünf grün sind:
 
 ```elm
 import Color exposing (..)
@@ -30,7 +30,7 @@ main = display (-200,-150) (200,150) scene Nothing
 ```
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playground3.elm), [@share-elm](http://share-elm.com/sprout/553a89b8e4b06aacf0e89847/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Kreise.elm), [@share-elm](http://share-elm.com/sprout/553a89b8e4b06aacf0e89847/0.15/view)
 -->
 
 Hinweise:

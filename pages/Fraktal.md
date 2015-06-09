@@ -4,7 +4,7 @@
 
 # Zusatzaufgabe(n)
 
-Vervollständige folgendes Programm:
+Vervollständige folgendes Programm (`Fraktal.elm`):
 
 ```elm
 scene _ _ =
@@ -26,7 +26,7 @@ main = display (-200,-150) (200,150) scene Nothing
 so dass `sierpinski i` jeweils die `i`. Stufe des [Sierpinski-Dreiecks](http://de.wikipedia.org/wiki/Sierpinski-Dreieck) darstellt, wobei der Umkreisradius des Gesamtdreiecks gleich `120` sein soll.
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Playgroundx.elm), [@share-elm](http://share-elm.com/sprout/553a8883e4b06aacf0e89841/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Fraktal.elm), [@share-elm](http://share-elm.com/sprout/553a8883e4b06aacf0e89841/0.15/view)
 -->
 
 Hinweise:
