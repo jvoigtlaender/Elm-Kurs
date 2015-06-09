@@ -49,5 +49,5 @@ Zusatz: Erweitere nun das Programm, so dass nach jedem Klick der "Stempel" etwas
 
 ---
 
-[Zusatz](Fraktal.md)
+[Weiter](Ballistics.md)
 
