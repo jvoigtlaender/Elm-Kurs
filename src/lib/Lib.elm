@@ -104,10 +104,10 @@ type Event = Space | Left | Up | Right | Down | Click | NoEvent
            | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
 
 -- not exported
-letters = Array.fromList [A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]
-
--- not exported
 toScreen x1 y2 f extra_sigs ini upd mt =
+  let
+    letters = Array.fromList [A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]
+  in
    Signal.map (\(t, { gridOn, mousePos, s }) -> f gridOn mousePos t s) <|
    Signal.Extra.foldp'
      (\(t, action) (_, state) -> action t ((t - state.lastReset) / 1000) state)
@@ -129,7 +129,7 @@ toScreen x1 y2 f extra_sigs ini upd mt =
                    [38] -> Up
                    [39] -> Right
                    [40] -> Down
-                   [a]  -> Maybe.withDefault NoEvent (Array.get (a-65) letters)
+                   [a]  -> Maybe.withDefault NoEvent (Array.get (a - 65) letters)
                    _ -> NoEvent)
          Keyboard.keysDown
      , Signal.map (always Click) Mouse.clicks
