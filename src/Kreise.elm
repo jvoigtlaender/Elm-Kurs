@@ -1,5 +1,4 @@
 import Lib exposing (..)
-import Color exposing (..)
 
 pic i =
   circle (10 * i)

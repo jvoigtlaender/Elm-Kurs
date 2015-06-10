@@ -1,9 +1,10 @@
-module Lib ( Timing(..), Event(..), Picture, LineStyle,
+module Lib ( Timing(..), Event(..), Picture, LineStyle, Color,
              display, displayWithState, display', displayWithState',
              circle, circle', rectangle, rectangle', square, square', path, path', oval, oval',
              ngon, ngon', polygon, polygon', text, image, icon, icon', empty,
              move, group, scale, rotate, alpha,
-             solid, dashed, dotted
+             solid, dashed, dotted,
+             red, orange, yellow, green, blue, purple, brown, white, black
            ) where
 
 import Set
@@ -38,7 +39,7 @@ makeGrid x1 y1 x2 y2 =
    , group <|
      List.map (\j -> let y = toFloat j * gridsize - y_ in path' (dotted (Color.greyscale 0.15)) [ (-xh,y), (xh,y) ])
               [ ceiling (y1/gridsize) .. floor (y2/gridsize) ]
-   , move (-x_,-y_) (Graphics.Collage.filled Color.red (Graphics.Collage.circle 2))
+   , move (-x_,-y_) (Graphics.Collage.filled red (Graphics.Collage.circle 2))
    ]
 
 type Timing = Every Float | FPS Float | AnimationFrame
@@ -187,7 +188,7 @@ square' s a =
 type alias Color = Color.Color
 
 ngon : Float -> Float -> Picture
-ngon = ngon' Color.black
+ngon = ngon' black
 
 ngon' : Color -> Float -> Float -> Picture
 ngon' c n r =
@@ -238,6 +239,33 @@ dashed = Graphics.Collage.dashed
 dotted : Color -> LineStyle
 dotted = Graphics.Collage.dotted
 
+red : Color
+red = Color.red
+
+orange : Color
+orange = Color.orange
+
+yellow : Color
+yellow = Color.yellow
+
+green : Color
+green = Color.green
+
+blue : Color
+blue = Color.blue
+
+purple : Color
+purple = Color.purple
+
+brown : Color
+brown = Color.brown
+
+white : Color
+white = Color.white
+
+black : Color
+black = Color.black
+
 image : (Float,Float) -> String -> Picture
 image (x,y) s =
   Graphics.Collage.toForm <|
@@ -247,7 +275,7 @@ empty : Picture
 empty = Graphics.Collage.toForm Graphics.Element.empty
 
 icon : Float -> (Color -> Int -> Html.Html) -> Picture
-icon = icon' Color.black
+icon = icon' black
 
 icon' : Color -> Float -> (Color -> Int -> Html.Html) -> Picture
 icon' c s i =

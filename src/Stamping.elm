@@ -1,5 +1,4 @@
 import Lib exposing (..)
-import Color exposing (..)
 
 type alias State = List Picture
 

@@ -1,5 +1,4 @@
 import Lib exposing (..)
-import Color exposing (..)
 
 pic (x,y) i =
   let

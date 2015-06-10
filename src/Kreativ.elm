@@ -1,5 +1,4 @@
 import Lib exposing (..)
-import Color exposing (..)
 
 list =
   [ (circle 10, 0)
