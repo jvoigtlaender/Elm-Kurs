@@ -7,8 +7,6 @@
 Verändere folgendes Programm (`Kreativ.elm`):
 
 ```elm
-import Color exposing (..)
-
 list =
   [ (circle 10, 0)
   , (square 15, pi/2)

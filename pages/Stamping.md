@@ -11,8 +11,6 @@ Als Zustand bietet sich eine Liste von schon "angesammelten" Stempel-Teilbildern
 Verändere die `update`-Funktion in folgendem Programm (`Stamping.elm`):
 
 ```elm
-import Color exposing (..)
-
 type alias State = List Picture
 
 initial : State

@@ -7,8 +7,6 @@
 Vervollständige `Maus.elm` nun so, dass immer genau die Kreise rot sind, die näher am Koordinatenursprung sind als der Mauszeiger (und die anderen grün):
 
 ```elm
-import Color exposing (..)
-
 pic (x,y) i =
   let
     r = 10 * i
