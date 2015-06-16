@@ -30,6 +30,8 @@ Hinweis: Ein Teilbild kann an eine beliebige Position verschoben werden mit `ima
 
 Zusatz 2: Stelle "Mario" (`image (45,45) "http://elm-lang.org/imgs/mario/stand/right.gif"`) links neben das Haus. 
 
+Zusatz 3: Male statt dem einen Haus drei nebeneinander stehende gleiche Häuser.
+
 ---
 
 [Weiter](Forms.md)
