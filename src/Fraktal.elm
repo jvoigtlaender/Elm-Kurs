@@ -1,8 +1,10 @@
 import Lib exposing (..)
 
+scene : (Float,Float) -> Float -> Picture
 scene _ _ =
   sierpinski 4
 
+sierpinski : Int -> Picture
 sierpinski i = 
   if i > 0
     then
