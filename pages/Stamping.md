@@ -30,7 +30,7 @@ main = displayWithState (-200,-150) (200,150) scene initial update Nothing
 so dass das gewünschte Verhalten entsteht.
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Stamping.elm)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task10/Stamping.elm)
 -->
 
 Hinweise:

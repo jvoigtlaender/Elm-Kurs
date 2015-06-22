@@ -37,7 +37,7 @@ Es gibt einige Dinge zu erklären:
 Aufgabe: Verändere obiges Programm, so dass der Zähler bei `10` startet, mittels der Pfeil-Nach-Oben-Taste erhöht und mittels der Pfeil-Nach-Unten-Taste verringert wird, allerdings nie unter `0` sinkt. Außerdem soll die Leertaste nun dazu dienen, den Zähler jederzeit auf `0` setzen zu können. (Für die vier Pfeiltasten existieren die Ereignisnamen `Left`, `Up`, `Right` und `Down`.)
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Counter.elm)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task08/Counter.elm)
 -->
 
 ---

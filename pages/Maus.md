@@ -31,7 +31,7 @@ main = display (-200,-150) (200,150) scene Nothing
 ```
 
 <!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/Maus.elm), [@share-elm](http://share-elm.com/sprout/553a8a0ae4b06aacf0e89848/0.15/view)
+[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task04/Maus.elm), [@share-elm](http://share-elm.com/sprout/553a8a0ae4b06aacf0e89848/0.15/view)
 -->
 
 Zusätzlich zu den bisherigen Möglichkeiten stehen nun in `x` und `y` immer die Koordinaten der jeweils aktuellen Mausposition zur Verfügung.
