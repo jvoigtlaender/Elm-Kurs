@@ -31,5 +31,5 @@ scene _ _ (_, (x,y), _) =
   ]
   |> scale 3
 
-main = displayWithState (-10,-10) (600,300) scene initial update (Just (FPS 50))
+main = displayWithState (-10,-10) (600,300) scene initial update (Just AnimationFrame)
 

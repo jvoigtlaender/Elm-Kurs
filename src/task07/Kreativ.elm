@@ -18,5 +18,5 @@ scene (x,y) t =
   in
     group (List.indexedMap (fun << toFloat) list)
 
-main = display (-200,-150) (200,150) scene (Just (FPS 50))
+main = display (-200,-150) (200,150) scene (Just AnimationFrame)
 
