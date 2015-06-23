@@ -42,14 +42,10 @@ scene _ _ (_, (x,y), _) =
   ]
   |> scale 3
 
-main = displayWithState (-10,-10) (600,300) scene initial update (Just (FPS 50))
+main = displayWithState (-10,-10) (600,300) scene initial update (Just AnimationFrame)
 ```
 
 so dass die physikalische Simulation korrekt abläuft.
-
-<!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task11/Ballistics.elm)
--->
 
 Hinweise:
 
@@ -70,4 +66,8 @@ Eine Beispielrealisierung mit diesen Erweiterungen (und zusätzlich der Unterstüt
 ---
 
 [Zusatz](Fraktal.md)
+
+---
+
+([Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task11/Ballistics.elm), [@share-elm](http://share-elm.com/sprout/558973cfe4b06aacf0e8a765/0.14/view))
 

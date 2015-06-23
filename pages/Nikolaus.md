@@ -16,10 +16,6 @@ scene _ _ =
 main = display (-200,-150) (200,150) scene Nothing
 ```
 
-<!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task01/Nikolaus.elm), [@share-elm](http://share-elm.com/sprout/553a8a56e4b06aacf0e89849/0.15/view)
--->
-
 Zielbild, etwa:
 
 ![Haus des Nikolaus](../images/Nikolaus.png)
@@ -35,4 +31,8 @@ Zusatz 3: Male statt dem einen Haus drei nebeneinander stehende gleiche Häuser.
 ---
 
 [Weiter](Forms.md)
+
+---
+
+([Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task01/Nikolaus.elm), [@share-elm](http://share-elm.com/sprout/55896e9be4b06aacf0e8a75a/0.14/view))
 

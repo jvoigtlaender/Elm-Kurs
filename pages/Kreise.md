@@ -27,10 +27,6 @@ scene _ _ =
 main = display (-200,-150) (200,150) scene Nothing
 ```
 
-<!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task03/Kreise.elm), [@share-elm](http://share-elm.com/sprout/553a89b8e4b06aacf0e89847/0.15/view)
--->
-
 Hinweise:
 
 * Von den Funktionen `rectangle`, `square`, `circle`, `oval`, `path` gibt es Varianten, die uns das Aussehen der gezeichneten Linien verändern lassen.
@@ -51,4 +47,8 @@ Zielbild:
 ---
 
 [Weiter](Maus.md)
+
+---
+
+([Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task03/Kreise.elm), [@share-elm](http://share-elm.com/sprout/55896f3fe4b06aacf0e8a75c/0.14/view))
 

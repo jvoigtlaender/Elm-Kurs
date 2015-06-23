@@ -29,10 +29,6 @@ main = displayWithState (-200,-150) (200,150) scene initial update Nothing
 
 so dass das gewünschte Verhalten entsteht.
 
-<!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task10/Stamping.elm)
--->
-
 Hinweise:
 
 * `[]` steht für eine leere Liste, wohingegen `++` die Erweiterung einer Liste (oder allgemein das Aneinanderhängen zweier Listen) ermöglicht.
@@ -48,4 +44,8 @@ Zusatz: Erweitere nun das Programm, so dass nach jedem Klick der "Stempel" etwas
 ---
 
 [Weiter](Ballistics.md)
+
+---
+
+([Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task10/Stamping.elm), [@share-elm](http://share-elm.com/sprout/558972c2e4b06aacf0e8a763/0.14/view))
 

@@ -25,15 +25,11 @@ scene (x,y) t =
   in
     group (List.indexedMap (fun << toFloat) list)
 
-main = display (-200,-150) (200,150) scene (Just (FPS 50))
+main = display (-200,-150) (200,150) scene (Just AnimationFrame)
 ```
 
 so dass interessantes, von sowohl der Mausbewegung als auch der Zeit abhängiges Verhalten entsteht.
 Zum Beispiel [so etwas](http://jvoigtlaender.github.io/Elm-Kurs/examples/Kreativ.html).
-
-<!--
-[Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task07/Kreativ.elm), [@share-elm](http://share-elm.com/sprout/553a8901e4b06aacf0e89845/0.15/view)
--->
 
 Der Kreativität freien Lauf!
 
@@ -53,4 +49,8 @@ Beispielausdrücke zur Erinnerung:
 ---
 
 [Weiter](Counter.md)
+
+---
+
+([Datei](https://raw.githubusercontent.com/jvoigtlaender/Elm-Kurs/master/src/task07/Kreativ.elm), [@share-elm](http://share-elm.com/sprout/558970ede4b06aacf0e8a760/0.14/view))
 
