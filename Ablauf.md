@@ -97,6 +97,10 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 
 [Zustandsmodellierung](pages/Mario.md)
 
+# Zwischenaufgabe zur Auffrischung
+
+[Inkreis](pages/Inkreis.md)
+
 # Zehnte Aufgabe
 
 [Zustand + Maus](pages/Stamping.md)
@@ -108,10 +112,6 @@ Erklärung dabei: Ausdruck der Abhängigkeit von Zeitparameter
 # Zusatzaufgabe
 
 [Rekursion für das Sierpinski-Dreieck](pages/Fraktal.md)
-
-# Weggelassene Aufgabe
-
-[Inkreis](pages/Inkreis.md)
 
 # Bewusst ignorierte Dinge
 

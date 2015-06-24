@@ -44,7 +44,7 @@ Zusatz: Erweitere nun das Programm, so dass wenn Mario nach links oder rechts lä
 
 ---
 
-[Weiter](Stamping.md)
+[Weiter](Inkreis.md)
 
 ---
 
